@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/root/imdb/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/imdb.dir/src/main.cpp.o -c /home/root/imdb/src/main.cpp",
+  "file": "/home/root/imdb/src/main.cpp"
+}
+]

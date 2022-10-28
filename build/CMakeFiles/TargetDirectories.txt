@@ -1,0 +1,3 @@
+/home/root/imdb/build/CMakeFiles/rebuild_cache.dir
+/home/root/imdb/build/CMakeFiles/edit_cache.dir
+/home/root/imdb/build/CMakeFiles/imdb.dir
