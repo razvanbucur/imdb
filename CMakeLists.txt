@@ -14,7 +14,8 @@ set(Headers
 source_group("Headers" FILES ${Headers})
 
 set(Sources
-    src/main.cpp
+    src/Entities/tcpServer/main.cpp
+    # src/Entities/tcpClient/main.cpp
     )
 source_group("Sources" FILES ${Sources})
 

@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/imdb.dir/src/main.cpp.o -o imdb 
+/usr/bin/g++ -g CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o -o imdb 

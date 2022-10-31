@@ -76,27 +76,27 @@ include CMakeFiles/imdb.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/imdb.dir/flags.make
 
-CMakeFiles/imdb.dir/src/main.cpp.o: CMakeFiles/imdb.dir/flags.make
-CMakeFiles/imdb.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/root/imdb/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/imdb.dir/src/main.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/imdb.dir/src/main.cpp.o -c /home/root/imdb/src/main.cpp
+CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o: CMakeFiles/imdb.dir/flags.make
+CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o: ../src/Entities/tcpServer/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/root/imdb/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o -c /home/root/imdb/src/Entities/tcpServer/main.cpp
 
-CMakeFiles/imdb.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/imdb.dir/src/main.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/root/imdb/src/main.cpp > CMakeFiles/imdb.dir/src/main.cpp.i
+CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/root/imdb/src/Entities/tcpServer/main.cpp > CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.i
 
-CMakeFiles/imdb.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/imdb.dir/src/main.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/root/imdb/src/main.cpp -o CMakeFiles/imdb.dir/src/main.cpp.s
+CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/root/imdb/src/Entities/tcpServer/main.cpp -o CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.s
 
 # Object files for target imdb
 imdb_OBJECTS = \
-"CMakeFiles/imdb.dir/src/main.cpp.o"
+"CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o"
 
 # External object files for target imdb
 imdb_EXTERNAL_OBJECTS =
 
-imdb: CMakeFiles/imdb.dir/src/main.cpp.o
+imdb: CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o
 imdb: CMakeFiles/imdb.dir/build.make
 imdb: CMakeFiles/imdb.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/root/imdb/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable imdb"

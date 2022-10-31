@@ -6,10 +6,10 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string.h>
-#include "Entities/Movie.hpp"
-#include "Entities/Actor.hpp"
-#include "Entities/Director.hpp"
-#include "Entities/User.hpp"
+#include "..//Actor.hpp"
+#include "..//Director.hpp"
+#include "..//User.hpp"
+#include "../Movie.hpp"
 
 using namespace std;
 

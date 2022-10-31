@@ -142,32 +142,32 @@ imdb/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/build
 .PHONY : imdb/fast
 
-src/main.o: src/main.cpp.o
+src/Entities/tcpServer/main.o: src/Entities/tcpServer/main.cpp.o
 
-.PHONY : src/main.o
+.PHONY : src/Entities/tcpServer/main.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/Entities/tcpServer/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o
+.PHONY : src/Entities/tcpServer/main.cpp.o
 
-src/main.i: src/main.cpp.i
+src/Entities/tcpServer/main.i: src/Entities/tcpServer/main.cpp.i
 
-.PHONY : src/main.i
+.PHONY : src/Entities/tcpServer/main.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/Entities/tcpServer/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.i
+.PHONY : src/Entities/tcpServer/main.cpp.i
 
-src/main.s: src/main.cpp.s
+src/Entities/tcpServer/main.s: src/Entities/tcpServer/main.cpp.s
 
-.PHONY : src/main.s
+.PHONY : src/Entities/tcpServer/main.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/Entities/tcpServer/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.s
+.PHONY : src/Entities/tcpServer/main.cpp.s
 
 # Help Target
 help:
@@ -178,9 +178,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... imdb"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/Entities/tcpServer/main.o"
+	@echo "... src/Entities/tcpServer/main.i"
+	@echo "... src/Entities/tcpServer/main.s"
 .PHONY : help
 
 
