@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o"
+  "CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.o"
+  "CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.o"
   "imdb"
   "imdb.pdb"
 )

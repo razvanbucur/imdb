@@ -142,32 +142,59 @@ imdb/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/build
 .PHONY : imdb/fast
 
-src/Entities/tcpServer/main.o: src/Entities/tcpServer/main.cpp.o
+src/Entities/connection/MainServer.o: src/Entities/connection/MainServer.cpp.o
 
-.PHONY : src/Entities/tcpServer/main.o
+.PHONY : src/Entities/connection/MainServer.o
 
 # target to build an object file
-src/Entities/tcpServer/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o
-.PHONY : src/Entities/tcpServer/main.cpp.o
+src/Entities/connection/MainServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.o
+.PHONY : src/Entities/connection/MainServer.cpp.o
 
-src/Entities/tcpServer/main.i: src/Entities/tcpServer/main.cpp.i
+src/Entities/connection/MainServer.i: src/Entities/connection/MainServer.cpp.i
 
-.PHONY : src/Entities/tcpServer/main.i
+.PHONY : src/Entities/connection/MainServer.i
 
 # target to preprocess a source file
-src/Entities/tcpServer/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.i
-.PHONY : src/Entities/tcpServer/main.cpp.i
+src/Entities/connection/MainServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.i
+.PHONY : src/Entities/connection/MainServer.cpp.i
 
-src/Entities/tcpServer/main.s: src/Entities/tcpServer/main.cpp.s
+src/Entities/connection/MainServer.s: src/Entities/connection/MainServer.cpp.s
 
-.PHONY : src/Entities/tcpServer/main.s
+.PHONY : src/Entities/connection/MainServer.s
 
 # target to generate assembly for a file
-src/Entities/tcpServer/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.s
-.PHONY : src/Entities/tcpServer/main.cpp.s
+src/Entities/connection/MainServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.s
+.PHONY : src/Entities/connection/MainServer.cpp.s
+
+src/Entities/connection/Server.o: src/Entities/connection/Server.cpp.o
+
+.PHONY : src/Entities/connection/Server.o
+
+# target to build an object file
+src/Entities/connection/Server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.o
+.PHONY : src/Entities/connection/Server.cpp.o
+
+src/Entities/connection/Server.i: src/Entities/connection/Server.cpp.i
+
+.PHONY : src/Entities/connection/Server.i
+
+# target to preprocess a source file
+src/Entities/connection/Server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.i
+.PHONY : src/Entities/connection/Server.cpp.i
+
+src/Entities/connection/Server.s: src/Entities/connection/Server.cpp.s
+
+.PHONY : src/Entities/connection/Server.s
+
+# target to generate assembly for a file
+src/Entities/connection/Server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/imdb.dir/build.make CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.s
+.PHONY : src/Entities/connection/Server.cpp.s
 
 # Help Target
 help:
@@ -178,9 +205,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... imdb"
-	@echo "... src/Entities/tcpServer/main.o"
-	@echo "... src/Entities/tcpServer/main.i"
-	@echo "... src/Entities/tcpServer/main.s"
+	@echo "... src/Entities/connection/MainServer.o"
+	@echo "... src/Entities/connection/MainServer.i"
+	@echo "... src/Entities/connection/MainServer.s"
+	@echo "... src/Entities/connection/Server.o"
+	@echo "... src/Entities/connection/Server.i"
+	@echo "... src/Entities/connection/Server.s"
 .PHONY : help
 
 

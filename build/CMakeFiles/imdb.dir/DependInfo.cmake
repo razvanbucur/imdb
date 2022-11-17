@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/root/imdb/src/Entities/tcpServer/main.cpp" "/home/root/imdb/build/CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o"
+  "/home/root/imdb/src/Entities/connection/MainServer.cpp" "/home/root/imdb/build/CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.o"
+  "/home/root/imdb/src/Entities/connection/Server.cpp" "/home/root/imdb/build/CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

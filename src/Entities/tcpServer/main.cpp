@@ -6,9 +6,9 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string.h>
-#include "..//Actor.hpp"
-#include "..//Director.hpp"
-#include "..//User.hpp"
+#include "../Actor.hpp"
+#include "../Director.hpp"
+#include "../User.hpp"
 #include "../Movie.hpp"
 
 using namespace std;
@@ -34,7 +34,7 @@ int main()
         std::cerr << " Can't bind to IP/port";
         return -2;
     }
-    // Mark the socket for listening in
+    // Mark the socket for listening in`
 
     if (listen(listening, SOMAXCONN) == -1)
     {

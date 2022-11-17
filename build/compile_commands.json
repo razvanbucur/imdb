@@ -1,7 +1,12 @@
 [
 {
   "directory": "/home/root/imdb/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/imdb.dir/src/Entities/tcpServer/main.cpp.o -c /home/root/imdb/src/Entities/tcpServer/main.cpp",
-  "file": "/home/root/imdb/src/Entities/tcpServer/main.cpp"
+  "command": "/usr/bin/g++   -g -o CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.o -c /home/root/imdb/src/Entities/connection/Server.cpp",
+  "file": "/home/root/imdb/src/Entities/connection/Server.cpp"
+},
+{
+  "directory": "/home/root/imdb/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.o -c /home/root/imdb/src/Entities/connection/MainServer.cpp",
+  "file": "/home/root/imdb/src/Entities/connection/MainServer.cpp"
 }
 ]

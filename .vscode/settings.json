@@ -49,6 +49,7 @@
         "concepts": "cpp",
         "ranges": "cpp",
         "actor": "cpp",
-        "director": "cpp"
+        "director": "cpp",
+        "cstring": "cpp"
     }
 }

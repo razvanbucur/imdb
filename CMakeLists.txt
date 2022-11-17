@@ -10,12 +10,15 @@ set(Headers
      src/Entities/Actor.hpp
      src/Entities/Director.hpp
      src/Entities/User.hpp
+     src/Entities/connection/Server.hpp
     )
 source_group("Headers" FILES ${Headers})
 
 set(Sources
-    src/Entities/tcpServer/main.cpp
+    # src/Entities/tcpServer/main.cpp
+    src/Entities/connection/Server.cpp
     # src/Entities/tcpClient/main.cpp
+    src/Entities/connection/MainServer.cpp
     )
 source_group("Sources" FILES ${Sources})
 
