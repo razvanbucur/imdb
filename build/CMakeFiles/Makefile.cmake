@@ -11,6 +11,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.18.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.18.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.18.4/CMakeSystem.cmake"
+  "../connection/client/CMakeLists.txt"
+  "../connection/server/CMakeLists.txt"
   "/usr/share/cmake-3.18/Modules/CMakeCCompiler.cmake.in"
   "/usr/share/cmake-3.18/Modules/CMakeCCompilerABI.c"
   "/usr/share/cmake-3.18/Modules/CMakeCInformation.cmake"
@@ -112,9 +114,12 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.18.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.18.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "connection/client/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "connection/server/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/imdb.dir/DependInfo.cmake"
+  "connection/client/CMakeFiles/Client.dir/DependInfo.cmake"
+  "connection/server/CMakeFiles/Server.dir/DependInfo.cmake"
   )

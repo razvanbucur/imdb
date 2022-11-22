@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/imdb.dir/Client.cpp.o CMakeFiles/imdb.dir/MainClient.cpp.o -o imdb 

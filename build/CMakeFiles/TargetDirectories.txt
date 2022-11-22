@@ -1,3 +1,8 @@
 /home/root/imdb/build/CMakeFiles/rebuild_cache.dir
 /home/root/imdb/build/CMakeFiles/edit_cache.dir
-/home/root/imdb/build/CMakeFiles/imdb.dir
+/home/root/imdb/build/connection/client/CMakeFiles/rebuild_cache.dir
+/home/root/imdb/build/connection/client/CMakeFiles/edit_cache.dir
+/home/root/imdb/build/connection/client/CMakeFiles/Client.dir
+/home/root/imdb/build/connection/server/CMakeFiles/rebuild_cache.dir
+/home/root/imdb/build/connection/server/CMakeFiles/edit_cache.dir
+/home/root/imdb/build/connection/server/CMakeFiles/Server.dir

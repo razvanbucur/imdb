@@ -1,12 +1,22 @@
 [
 {
-  "directory": "/home/root/imdb/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/imdb.dir/src/Entities/connection/Server.cpp.o -c /home/root/imdb/src/Entities/connection/Server.cpp",
-  "file": "/home/root/imdb/src/Entities/connection/Server.cpp"
+  "directory": "/home/root/imdb/build/connection/client",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/Client.dir/Client.cpp.o -c /home/root/imdb/connection/client/Client.cpp",
+  "file": "/home/root/imdb/connection/client/Client.cpp"
 },
 {
-  "directory": "/home/root/imdb/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/imdb.dir/src/Entities/connection/MainServer.cpp.o -c /home/root/imdb/src/Entities/connection/MainServer.cpp",
-  "file": "/home/root/imdb/src/Entities/connection/MainServer.cpp"
+  "directory": "/home/root/imdb/build/connection/client",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/Client.dir/MainClient.cpp.o -c /home/root/imdb/connection/client/MainClient.cpp",
+  "file": "/home/root/imdb/connection/client/MainClient.cpp"
+},
+{
+  "directory": "/home/root/imdb/build/connection/server",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/Server.dir/Server.cpp.o -c /home/root/imdb/connection/server/Server.cpp",
+  "file": "/home/root/imdb/connection/server/Server.cpp"
+},
+{
+  "directory": "/home/root/imdb/build/connection/server",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/Server.dir/MainServer.cpp.o -c /home/root/imdb/connection/server/MainServer.cpp",
+  "file": "/home/root/imdb/connection/server/MainServer.cpp"
 }
 ]

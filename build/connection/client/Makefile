@@ -99,14 +99,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/root/imdb/build/CMakeFiles /home/root/imdb/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/root/imdb/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/root/imdb/build/CMakeFiles /home/root/imdb/build/connection/client//CMakeFiles/progress.marks
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 connection/client/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/root/imdb/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 connection/client/clean
 .PHONY : clean
 
 # The main clean target
@@ -116,44 +116,87 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 connection/client/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 connection/client/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/root/imdb/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named Client
+# Convenience name for target.
+connection/client/CMakeFiles/Client.dir/rule:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 connection/client/CMakeFiles/Client.dir/rule
+.PHONY : connection/client/CMakeFiles/Client.dir/rule
 
-# Build rule for target.
-Client: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Client
+# Convenience name for target.
+Client: connection/client/CMakeFiles/Client.dir/rule
+
 .PHONY : Client
 
 # fast build rule for target.
 Client/fast:
-	$(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/build
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/build
 .PHONY : Client/fast
 
-#=============================================================================
-# Target rules for targets named Server
+Client.o: Client.cpp.o
 
-# Build rule for target.
-Server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Server
-.PHONY : Server
+.PHONY : Client.o
 
-# fast build rule for target.
-Server/fast:
-	$(MAKE) $(MAKESILENT) -f connection/server/CMakeFiles/Server.dir/build.make connection/server/CMakeFiles/Server.dir/build
-.PHONY : Server/fast
+# target to build an object file
+Client.cpp.o:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/Client.cpp.o
+.PHONY : Client.cpp.o
+
+Client.i: Client.cpp.i
+
+.PHONY : Client.i
+
+# target to preprocess a source file
+Client.cpp.i:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/Client.cpp.i
+.PHONY : Client.cpp.i
+
+Client.s: Client.cpp.s
+
+.PHONY : Client.s
+
+# target to generate assembly for a file
+Client.cpp.s:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/Client.cpp.s
+.PHONY : Client.cpp.s
+
+MainClient.o: MainClient.cpp.o
+
+.PHONY : MainClient.o
+
+# target to build an object file
+MainClient.cpp.o:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/MainClient.cpp.o
+.PHONY : MainClient.cpp.o
+
+MainClient.i: MainClient.cpp.i
+
+.PHONY : MainClient.i
+
+# target to preprocess a source file
+MainClient.cpp.i:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/MainClient.cpp.i
+.PHONY : MainClient.cpp.i
+
+MainClient.s: MainClient.cpp.s
+
+.PHONY : MainClient.s
+
+# target to generate assembly for a file
+MainClient.cpp.s:
+	cd /home/root/imdb/build && $(MAKE) $(MAKESILENT) -f connection/client/CMakeFiles/Client.dir/build.make connection/client/CMakeFiles/Client.dir/MainClient.cpp.s
+.PHONY : MainClient.cpp.s
 
 # Help Target
 help:
@@ -164,7 +207,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Client"
-	@echo "... Server"
+	@echo "... Client.o"
+	@echo "... Client.i"
+	@echo "... Client.s"
+	@echo "... MainClient.o"
+	@echo "... MainClient.i"
+	@echo "... MainClient.s"
 .PHONY : help
 
 
@@ -176,6 +224,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/root/imdb/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

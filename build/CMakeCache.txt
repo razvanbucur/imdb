@@ -209,6 +209,18 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
+Client_BINARY_DIR:STATIC=/home/root/imdb/build/connection/client
+
+//Value Computed by CMake
+Client_SOURCE_DIR:STATIC=/home/root/imdb/connection/client
+
+//Value Computed by CMake
+Server_BINARY_DIR:STATIC=/home/root/imdb/build/connection/server
+
+//Value Computed by CMake
+Server_SOURCE_DIR:STATIC=/home/root/imdb/connection/server
+
+//Value Computed by CMake
 imdb_BINARY_DIR:STATIC=/home/root/imdb/build
 
 //Value Computed by CMake
@@ -317,7 +329,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
