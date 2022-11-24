@@ -16,7 +16,7 @@ private:
 int _sock;
 int _sendRes;
 int _connectRes;
-sockaddr_in hint;   //hint e altcv
+sockaddr_in _settings;   
 int _listenPort;
 
     void CreateSocket();
@@ -26,7 +26,7 @@ int _listenPort;
 
 
 public:
-
+    Client();
     Client(int listenPort);
     ~Client();
     void StartClient();

@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "imdb",
+            "name": "Client",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/imdb",
+            "program": "${workspaceFolder}/build/connection/client/Client",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

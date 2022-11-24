@@ -82,7 +82,7 @@ bool Server::StartListening()
 void Server::AcceptCall()
 {
     sockaddr_in client;
-    socklen_t clientSize = sizeof(client); 
+    socklen_t clientSize = sizeof(client);
 
     _clientSocket = accept(_listenSocket, (sockaddr *)&client, &clientSize);
 
@@ -110,13 +110,17 @@ void Server::WhileReceiving()
         }
         // To do verifica conditia bytesrecv == 0 dupa ce se implementeza clientul
         // aceasta este conditia de stop "STOP"
-        if (bytesRecv == 0)
+        // std::string message = std::string(buff, 0, bytesRecv);
+        if (std::strcmp("stop", buff) == 0 || std::strcmp(" ", buff) == 0)
         {
             std::cout << "The client has disconnected" << std::endl;
 
             break;
         }
-        std::cout << "Received: " << std::string(buff, 0, bytesRecv) << std::endl;
+        std::cout << "Received: " << std::string(buff, 0, bytesRecv) << std::endl; // 0 este pozitia de start
+                                                                                   // sa returneze cu litere capitale
+
+         
 
         send(_clientSocket, buff, bytesRecv + 1, 0);
     }

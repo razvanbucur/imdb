@@ -1,8 +1,11 @@
 #include "Client.hpp"
-Client::Client(int listenPort) {
+Client::Client(int listenPort)
+{
     _listenPort = listenPort;
 }
 Client::~Client() {}
+
+Client::Client() {}
 
 void Client::StartClient()
 {
@@ -14,25 +17,28 @@ void Client::StartClient()
     std::cout << "Socket was created" << std::endl;
     HintStructure();
     ConnectServer();
-    
+    if (_connectRes == -1)
+    {
+        std::cout << "Connection not possible!" << std::endl;
+    }
 }
 
 void Client::CreateSocket()
 {
-    int sock = socket(DEFAULT_PROTOCOL, SOCK_STREAM, 0);
+    _sock = socket(DEFAULT_PROTOCOL, SOCK_STREAM, 0);
 }
 
 void Client::HintStructure()
 {
     std::string ipAddress = DEFAULT_IP;
-    hint.sin_family = DEFAULT_PROTOCOL;
-    hint.sin_port = htons(_listenPort);
-    inet_pton(DEFAULT_PROTOCOL, ipAddress.c_str(), &hint.sin_addr);
+    _settings.sin_family = DEFAULT_PROTOCOL;
+    _settings.sin_port = htons(_listenPort);
+    inet_pton(DEFAULT_PROTOCOL, ipAddress.c_str(), &_settings.sin_addr);
 }
 
 void Client::ConnectServer()
 {
-    _connectRes = connect(_sock, (sockaddr *)&hint, sizeof(hint));
+    _connectRes = connect(_sock, (sockaddr *)&_settings, sizeof(_settings));
     if (_connectRes == -1)
     {
         return;
@@ -49,20 +55,29 @@ void Client::ConnectServer()
         std::getline(std::cin, userInput);
 
         _sendRes = send(_sock, userInput.c_str(), userInput.size() + 1, 0);
+
         if (_sendRes == -1)
         {
-            std::cout << "Could not send to server!";
+            break;
+            std::cout << "Could not send to server!" << std::endl;
+        }
 
-            continue;
+        if (userInput == "stop" || userInput == " ")
+        {
+
+            std::cout << "Client and Server disconected!" << std::endl;
+            break;
         }
 
         memset(buf, 0, 4096);
         int bytesReceived = recv(_sock, buf, 4096, 0);
         // Display response
-        std::cout << "SERVER>" << std::string(buf, bytesReceived) << "\r\n";
-     } while (true);
-            
-        // Close the socket
-        close(_sock);
-    
+        std::cout << "SERVER RESPONSE>";
+        for (int x = 0; x < strlen(buf); x++)
+            putchar(toupper(buf[x]));
+        std::cout << std::endl;
+    } while (true);
+
+    // Close the socket
+    close(_sock);
 }

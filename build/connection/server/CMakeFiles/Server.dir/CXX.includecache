@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/root/imdb/connection/server/MainServer.cpp
-Server.hpp
-/home/root/imdb/connection/server/Server.hpp
-
 /home/root/imdb/connection/server/Server.cpp
 Server.hpp
 /home/root/imdb/connection/server/Server.hpp
