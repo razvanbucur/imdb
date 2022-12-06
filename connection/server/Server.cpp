@@ -117,11 +117,10 @@ void Server::WhileReceiving()
 
             break;
         }
-        std::cout << "Received: " << std::string(buff, 0, bytesRecv) << std::endl; // 0 este pozitia de start
-                                                                                   // sa returneze cu litere capitale
-
-         
-
+        std::cout << "Received: " << std::string(buff, 0, bytesRecv) << std::endl;
+        // sa returneze cu litere capitale
+        for (int x = 0; x < strlen(buff); x++)
+            buff[x] = toupper(buff[x]);
         send(_clientSocket, buff, bytesRecv + 1, 0);
     }
 }

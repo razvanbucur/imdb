@@ -13,17 +13,18 @@
 class Client
 {
 private:
-int _sock;
-int _sendRes;
-int _connectRes;
-sockaddr_in _settings;   
-int _listenPort;
+    int _sock;
+    int _sendRes;
+    int _connectRes;
+    sockaddr_in _settings;
+    int _listenPort;
 
     void CreateSocket();
     void HintStructure();
     void ConnectServer();
     void SendServer();
-
+    void SendMessage(std::string message);
+    void CloseSocket();
 
 public:
     Client();
