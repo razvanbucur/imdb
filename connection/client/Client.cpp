@@ -1,16 +1,13 @@
 #include "Client.hpp"
-#include "application/Application.hpp"
+
 Client::Client(int listenPort)
 {
     _listenPort = listenPort;
 }
 Client::~Client() {}
 
-Client::Client() {}
-
 void Client::StartClient()
 {
-    Application MyApplication = Application();
     CreateSocket();
     if (_sock == -1)
     {
@@ -23,7 +20,10 @@ void Client::StartClient()
     {
         std::cout << "Connection not possible!" << std::endl;
     }
-    MyApplication.StartApplication();
+}
+
+void Client::StopClient(std::string closingMessage) {
+    SendMessage(closingMessage);
     CloseSocket();
 }
 

@@ -22,13 +22,12 @@ private:
     void CreateSocket();
     void HintStructure();
     void ConnectServer();
-    void SendServer();
-    void SendMessage(std::string message);
     void CloseSocket();
 
 public:
-    Client();
     Client(int listenPort);
     ~Client();
     void StartClient();
+    void StopClient(std::string closingMessage);
+    void SendMessage(std::string message);
 };

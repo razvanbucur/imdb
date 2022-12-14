@@ -24,6 +24,7 @@ private:
     void AcceptCall();
     void CloseListening();
     void WhileReceiving();
+    
     void CloseSocket();
 public:
     Server(int listenPort);

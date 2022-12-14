@@ -7,12 +7,17 @@
 
 Application::Application()
 {
+    client = new Client(54001);
 }
+
 Application::~Application()
 {
+    delete client;
 }
+
 void Application::StartApplication()
 {
+    client->StartClient();
 
     int choice;
     while (true)
@@ -21,7 +26,7 @@ void Application::StartApplication()
         std::cout << "\033[H\033[2J\033[3J";
 
         std::cout << "Enter choice:" << std::endl;
-        std::cout << "1. Register\t\t2. Login\t\t3. Quit" << std::endl;
+        std::cout << "1. Register\t\t2. Login\t\t0. Quit" << std::endl;
         std::cin >> choice;
 
         std::cout << "\033[H\033[2J\033[3J";
@@ -34,7 +39,7 @@ void Application::StartApplication()
         {
             Login();
         }
-        else if (choice == 3)
+        else if (choice == 0)
         {
             std::cout << "You stopped the application." << std::endl;
             break;
@@ -45,26 +50,26 @@ void Application::StartApplication()
             std::cout << "Please enter a valid choice!" << std::endl;
         }
     }
+
+    client->StopClient(OPERATION_STOP);
 }
 
 void Application::Register()
 {
-    std::string uName, pass, name, email;
+    std::string email, password, name;
 
-    std::ofstream output;
-    output.open("record.txt");
-    std::cout << "Enter username: " << std::endl;
-    std::cin >> uName;
-    std::cout << "Enter password: " << std::endl;
-    std::cin >> pass;
-    std::cout << "Enter name: " << std::endl;
-    std::cin >> name;
     std::cout << "Enter email: " << std::endl;
     std::cin >> email;
+    std::cout << "Enter password: " << std::endl;
+    std::cin >> password;
+    std::cout << "Enter name: " << std::endl;
+    std::cin >> name;
 
-    output << uName << " " << pass << " " << name << " " << email << std::endl;
-    output.close();
-    std::cout << "Registration complete!" << std::endl;
+    std::string message = OPERATION_REGISTER "," + email + "," + password + "," + name;
+    client->SendMessage(message);
+
+    // orice a fost initilizat static, de exemplu Client client = Client(54001), apelezi metode sau campuri din obiectul respectiv cu: client.metoda(); sau client.port. CU PUNCT
+    // orice a fost initializat dinamic, de exemplu Client *client = new Client(54001), apelezi metode sau campuri din obiectul respectiv cu: client->metoda(); sau client->port. CU SAGEATA
 }
 void Application::Login()
 {

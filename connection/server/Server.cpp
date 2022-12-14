@@ -1,4 +1,6 @@
 #include "Server.hpp"
+#include "MessageInterpreter.hpp"
+
 
 Server::Server(int listenPort)
 {
@@ -108,20 +110,16 @@ void Server::WhileReceiving()
             std::cout << "There was a connection issue" << std::endl;
             break;
         }
-        // To do verifica conditia bytesrecv == 0 dupa ce se implementeza clientul
-        // aceasta este conditia de stop "STOP"
-        // std::string message = std::string(buff, 0, bytesRecv);
-        if (std::strcmp("stop", buff) == 0 || std::strcmp(" ", buff) == 0)
+        
+        std::string message(buff);
+        bool shouldStop = MessageInterpreter::InterpretMessage(message);
+        if (shouldStop == true)
         {
             std::cout << "The client has disconnected" << std::endl;
 
             break;
         }
-        std::cout << "Received: " << std::string(buff, 0, bytesRecv) << std::endl;
-        // sa returneze cu litere capitale
-        for (int x = 0; x < strlen(buff); x++)
-            buff[x] = toupper(buff[x]);
-        send(_clientSocket, buff, bytesRecv + 1, 0);
+      
     }
 }
 

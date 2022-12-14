@@ -1,9 +1,9 @@
-#include "Client.hpp"
+#include "application/Application.hpp"
 
 int main()
 {
-    Client client = Client(54001);
-    client.StartClient();
+    Application application;
+    application.StartApplication();
 
     return 0;
 }
