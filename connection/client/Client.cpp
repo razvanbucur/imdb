@@ -22,7 +22,8 @@ void Client::StartClient()
     }
 }
 
-void Client::StopClient(std::string closingMessage) {
+void Client::StopClient(std::string closingMessage)
+{
     SendMessage(closingMessage);
     CloseSocket();
 }
@@ -50,13 +51,27 @@ void Client::ConnectServer()
 }
 void Client::SendMessage(std::string message)
 {
-    _sendRes = send(_sock, message.c_str(), message.size() + 1, 0);
+    _sendRes = send(_sock, message.c_str(), message.size() + 1, 0); // to do: ce e cu acel 0(flag) la final
 
     if (_sendRes == -1)
     {
 
         std::cout << "Could not send to server!" << std::endl;
     }
+}
+std::string Client::ReceiveMessage()
+{
+    std::string receivedMessage;
+    char buff[4096];
+    memset(buff, 0, 4096);
+    int bytesRecv = recv(_sock, buff, 4096, 0);
+    receivedMessage = buff;
+    if (bytesRecv == -1)
+
+    {
+        std::cout << MESSAGE_NOT_RECEIVED << std::endl;
+    }
+    return receivedMessage;
 }
 void Client::CloseSocket()
 {

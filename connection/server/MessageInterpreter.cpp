@@ -1,8 +1,5 @@
 #include "MessageInterpreter.hpp"
-#include <string>
-#include <vector>
-#include <sstream>
-#include "DataManager.hpp"
+
 
 MessageInterpreter::MessageInterpreter()
 {
@@ -26,24 +23,25 @@ std::vector<std::string> MessageInterpreter::SplitMessage(std::string message)
     return splittedStringContent;
 }
 
-bool MessageInterpreter::InterpretMessage(std::string message)
+std::string MessageInterpreter::InterpretMessage(std::string message)
 {
     // spargere mesaj dupa virgule
     // verificare primul element din mesaj, adica un cod pentru o anumita operatie/comanda (0 -> stop, 1 -> register, etc)
     std::vector<std::string> splittedMessage = SplitMessage(message);
 
     std::string currentOperation = splittedMessage[0];
-
+    std::string returnValue;
     if (currentOperation == OPERATION_STOP)
     {
-        return true;
+        returnValue = STOP_CODE;
     }
     else if (currentOperation == OPERATION_REGISTER)
     {
-        DataManager::RegisterUser(splittedMessage);
+        returnValue = DataManager::RegisterUser(splittedMessage);
     }
     else if (currentOperation == OPERATION_LOGIN)
     {
-        DataManager::LoginUser(splittedMessage);
+        returnValue = DataManager::LoginUser(splittedMessage);
     }
+    return returnValue;
 }

@@ -1,6 +1,4 @@
 #include "Server.hpp"
-#include "MessageInterpreter.hpp"
-
 
 Server::Server(int listenPort)
 {
@@ -15,18 +13,22 @@ void Server::StartServer()
     CreateSocket();
     if (_listenSocket == -1)
     {
+        std::cout << "Can't create a socket!" << std::endl;
         return;
     }
+
     std::cout << "Socket was created" << std::endl;
 
     if (BindSocket() == 1)
     {
+        std::cout << "Can't bind socket to IP/port" << std::endl;
         return;
     }
     std::cout << "Bind was succesfull" << std::endl;
 
     if (StartListening() == 1)
     {
+        std::cout << "Can't listen!" << std::endl;
         return;
     }
     std::cout << "Listen was created" << std::endl;
@@ -34,24 +36,22 @@ void Server::StartServer()
     AcceptCall();
     if (_clientSocket == -1)
     {
+        std::cout << "Problem with client connecting!" << std::endl;
         return;
     }
     std::cout << "Call was accepted" << std::endl;
 
     WhileReceiving();
 
-    CloseSocket();
+    CloseListenSocket();
     std::cout << "Socket was closed" << std::endl;
+    CloseClientSocket();
+    std::cout<<"Client socket was closed"<<std::endl;
 }
 
 void Server::CreateSocket()
 {
     _listenSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (_listenSocket == -1)
-    {
-        std::cout << "Can't create a socket!" << std::endl;
-    }
 }
 
 bool Server::BindSocket()
@@ -63,21 +63,13 @@ bool Server::BindSocket()
 
     bool _couldBind = bind(_listenSocket, (sockaddr *)&_settings, sizeof(_settings));
 
-    if (_couldBind == -1)
-    {
-        std::cout << "Can't bind socket to IP/port" << std::endl;
-    }
-
     return _couldBind;
 }
 
 bool Server::StartListening()
 {
     bool _couldListen = listen(_listenSocket, SOMAXCONN);
-    if (_couldListen == -1)
-    {
-        std::cout << "Can't listen!" << std::endl;
-    }
+
     return _couldListen;
 }
 
@@ -87,12 +79,6 @@ void Server::AcceptCall()
     socklen_t clientSize = sizeof(client);
 
     _clientSocket = accept(_listenSocket, (sockaddr *)&client, &clientSize);
-
-    if (_clientSocket == -1)
-    {
-
-        std::cout << "Problem with client connecting!" << std::endl;
-    }
 }
 
 void Server::WhileReceiving()
@@ -103,28 +89,43 @@ void Server::WhileReceiving()
 
         memset(buff, 0, 4096);
 
-        int bytesRecv = recv(_clientSocket, buff, 4096, 0);
+        int bytesRecv = recv(_clientSocket, buff, 4096, 0); // x0000000000000 la primul 0 se opreste deoarece acolo se termina sirul de caractere
         if (bytesRecv == -1)
         {
-
             std::cout << "There was a connection issue" << std::endl;
             break;
         }
-        
-        std::string message(buff);
-        bool shouldStop = MessageInterpreter::InterpretMessage(message);
-        if (shouldStop == true)
-        {
-            std::cout << "The client has disconnected" << std::endl;
 
-            break;
+        std::string message(buff);
+
+        std::string returnValue = MessageInterpreter::InterpretMessage(message);
+        if (returnValue == STOP_CODE)
+        {
+            CloseClientSocket();
+            std::cout << STOP_MESSAGE << std::endl;
+            continue;
         }
-      
+        SendMessage(returnValue);
     }
 }
 
-void Server::CloseSocket()
+void Server::SendMessage(std::string message)
+{
+    int sendRes = send(_clientSocket, message.c_str(), message.size() + 1, 0);
+
+    if (sendRes == -1)
+    {
+
+        std::cout << "Could not send to client!" << std::endl;
+    }
+}
+
+void Server::CloseListenSocket()
+{
+
+    close(_listenSocket);
+}
+void Server::CloseClientSocket()
 {
     close(_clientSocket);
-    close(_listenSocket);
 }

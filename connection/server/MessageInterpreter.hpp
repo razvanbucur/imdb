@@ -1,5 +1,9 @@
+#pragma once
+
 #include <string>
 #include <vector>
+#include <sstream>
+#include "DataManager.hpp"
 
 #define OPERATION_STOP "0"
 #define OPERATION_REGISTER "1"
@@ -12,5 +16,5 @@ private:
 public:
     MessageInterpreter();
     ~MessageInterpreter();
-    static bool InterpretMessage(std::string message);
+    static std::string InterpretMessage(std::string message);
 };

@@ -9,6 +9,7 @@
 
 #define DEFAULT_PROTOCOL AF_INET
 #define DEFAULT_IP "127.0.0.1"
+#define MESSAGE_NOT_RECEIVED "Message not received"
 
 class Client
 {
@@ -30,4 +31,5 @@ public:
     void StartClient();
     void StopClient(std::string closingMessage);
     void SendMessage(std::string message);
+    std::string ReceiveMessage();
 };

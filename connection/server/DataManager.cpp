@@ -8,29 +8,34 @@ DataManager::~DataManager()
 {
 }
 
-bool DataManager::RegisterUser(std::vector<std::string> splittedMessage)
+std::string DataManager::RegisterUser(std::vector<std::string> splittedMessage)
 {
     if (splittedMessage.size() != 4)
     {
 
-        std::cout << "Invalid register data" << std::endl;
-        return false;
+        std::cout << REG_INVALID_DATA_MESSAGE << std::endl;
+        return REG_INVALID_DATA_CODE;
     }
 
     if (!IsValidEmail(splittedMessage[1]))
     {
-        std::cout << "Invalid email!" << std::endl;
-        return false;
+        std::cout << REG_INVALID_EMAIL_MESSAGE << std::endl;
+        return REG_INVALID_EMAIL_CODE;
+    }
+    if (EmailExists(splittedMessage[1]))
+    {
+        std::cout << REG_EMAIL_EXISTS_MESSAGE << std::endl;
+        return REG_EMAIL_EXISTS_CODE;
     }
     if (!IsSecurePassword(splittedMessage[2]))
     {
-        std::cout << "Insecure password!" << std::endl;
-        return false;
+        std::cout << REG_INSECURE_PASS_MESSAGE << std::endl;
+        return REG_INSECURE_PASS_CODE;
     }
     if (!IsValidName(splittedMessage[3]))
     {
-        std::cout << "Invalid name!" << std::endl;
-        return false;
+        std::cout << REG_INVALID_NAME_MESSAGE << std::endl;
+        return REG_INVALID_NAME_CODE;
     }
 
     sqlite3pp::database db(DATABASE_PATH);
@@ -43,9 +48,9 @@ bool DataManager::RegisterUser(std::vector<std::string> splittedMessage)
                    << splittedMessage[3];
 
     query.execute();
-    std::cout<< "Registration successfully!"<< std::endl;
-    
-    return true;
+
+    std::cout << REG_SUCCESS_MESSAGE << std::endl;
+    return REG_SUCCESS_CODE;
 }
 
 bool DataManager::IsValidName(std::string name)
@@ -77,6 +82,10 @@ bool DataManager::IsSecurePassword(std::string password)
     return true;
 }
 
+// nume@yahoo.com
+// nume.nume@yahoocom
+// string@string.string regex
+
 bool DataManager::IsValidEmail(std::string email)
 {
     if (email.find("@") == std::string::npos)
@@ -89,8 +98,58 @@ bool DataManager::IsValidEmail(std::string email)
     }
     return true;
 }
-
-bool DataManager::LoginUser(std::vector<std::string> splittedMessage)
+bool DataManager::EmailExists(std::string email)
 {
-    return true;
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qry(db, "SELECT Email FROM Users");
+
+    for (sqlite3pp::query::iterator k = qry.begin(); k != qry.end(); ++k)
+    {
+
+        std::string dbEmailReg = (*k).get<std::string>(0);
+
+        if (email == dbEmailReg)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+std::string DataManager::LoginUser(std::vector<std::string> splittedMessage)
+
+{
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qry(db, "SELECT Email,Password FROM Users");
+
+    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    {
+        std::string dbEmail, dbPassword;
+
+        for (int j = 0; j < qry.column_count(); ++j)
+        {
+            if (j == 0)
+            {
+
+                dbEmail = (*i).get<char const *>(j);
+            }
+            if (j == 1)
+            {
+                dbPassword = (*i).get<char const *>(j);
+            }
+        }
+        std::string clEmail, clPassword;
+
+        clEmail = splittedMessage[1];
+        clPassword = splittedMessage[2];
+
+        if (clEmail == dbEmail && clPassword == dbPassword)
+        {
+            std::cout << LOGIN_SUCCESS_MESSAGE << std::endl;
+            return LOGIN_SUCCESS_CODE;
+        }
+    }
+
+    std::cout << LOGIN_USER_PASS_INCORECT_MESSAGE << std::endl;
+    return LOGIN_USER_PASS_INCORECT_CODE;
 }
