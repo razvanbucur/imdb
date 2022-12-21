@@ -45,8 +45,6 @@ void Server::StartServer()
 
     CloseListenSocket();
     std::cout << "Socket was closed" << std::endl;
-    CloseClientSocket();
-    std::cout<<"Client socket was closed"<<std::endl;
 }
 
 void Server::CreateSocket()
@@ -86,13 +84,13 @@ void Server::WhileReceiving()
     char buff[4096];
     while (true)
     {
-
         memset(buff, 0, 4096);
 
-        int bytesRecv = recv(_clientSocket, buff, 4096, 0); // x0000000000000 la primul 0 se opreste deoarece acolo se termina sirul de caractere
+        int bytesRecv = recv(_clientSocket, buff, 4096, 0); // alex0000000000000 la primul 0 se opreste deoarece acolo se termina sirul de caractere
         if (bytesRecv == -1)
         {
             std::cout << "There was a connection issue" << std::endl;
+            CloseClientSocket();
             break;
         }
 
