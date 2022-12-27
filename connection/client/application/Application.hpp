@@ -39,7 +39,8 @@ public:
     Application();
     ~Application();
     void StartApplication();
-    void Login();
-    void Register();
+    bool Login();
+    bool Register();
     char getch();
+    void ShowReturnMenu();
 };

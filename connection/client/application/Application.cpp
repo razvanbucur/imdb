@@ -23,22 +23,30 @@ void Application::StartApplication()
     int choice;
     while (true)
     {
-        sleep(2);
-        std::cout << "\033[H\033[2J\033[3J";
+        /* sleep(2);
+        std::cout << "\033[H\033[2J\033[3J";*/
 
         std::cout << "Enter choice:" << std::endl;
         std::cout << "1. Register\t\t2. Login\t\t0. Quit" << std::endl;
         std::cin >> choice;
 
-        std::cout << "\033[H\033[2J\033[3J";
+        // std::cout << "\033[H\033[2J\033[3J";
 
-        if (choice == 1)
+        if (choice == 1) // definuri
         {
-            Register();
+            bool couldRegister = Register();
+            if (couldRegister == false)
+            {
+                Register();
+            }
         }
         else if (choice == 2)
         {
-            Login();
+            bool couldLogin = Login();
+            if (couldLogin == false)
+            {
+                Login();
+            }
         }
         else if (choice == 0)
         {
@@ -47,12 +55,36 @@ void Application::StartApplication()
         }
         else
         {
-
             std::cout << VALID_CHOICE << std::endl;
+            StartApplication();
         }
     }
 
     client->StopClient(OPERATION_STOP);
+}
+void Application::ShowReturnMenu()
+{
+    char cont;
+    do
+    {
+        std::cout << "Return to Main Menu? [Y/N]: ";
+        std::cin >> cont;
+        cont = toupper(cont);
+        if (cont == 'Y')
+        {
+            break;
+        }
+        else if (cont == 'N')
+        {
+            std::cout << "Closing program..." << std::endl;
+
+            exit(0);
+        }
+        else
+        {
+            std::cout << "Invalid choice!" << std::endl;
+        }
+    } while (cont != 'Y' || cont != 'N');
 }
 char Application::getch()
 {
@@ -76,7 +108,7 @@ char Application::getch()
         perror("tcsetattr ~ICANON");
     return buf;
 }
-void Application::Register()
+bool Application::Register()
 {
     std::string email, password, name;
 
@@ -100,8 +132,8 @@ void Application::Register()
 
     if (recvMessage == REG_SUCCESS_CODE)
     {
-
         std::cout << REG_SUCCESS_MESSAGE << std::endl;
+        return true;
     }
     else if (recvMessage == REG_INVALID_DATA_CODE)
     {
@@ -123,11 +155,12 @@ void Application::Register()
     {
         std::cout << REG_INVALID_NAME_MESSAGE << std::endl;
     }
+    return false;
     // orice a fost initilizat static, de exemplu Client client = Client(54001), apelezi metode sau campuri din obiectul respectiv cu: client.metoda(); sau client.port. CU PUNCT
     // orice a fost initializat dinamic, de exemplu Client *client = new Client(54001), apelezi metode sau campuri din obiectul respectiv cu: client->metoda(); sau client->port. CU SAGEATA
 }
 
-void Application::Login()
+bool Application::Login()
 {
 
     std::string logname, logpass;
@@ -151,11 +184,12 @@ void Application::Login()
     std::string recvMessage = client->ReceiveMessage();
     if (recvMessage == LOGIN_SUCCESS_CODE)
     {
-
         std::cout << LOGIN_SUCCESS_MESSAGE << std::endl;
+        return true;
     }
     else if (recvMessage == LOGIN_USER_PASS_INCORECT_CODE)
     {
         std::cout << LOGIN_USER_PASS_INCORECT_MESSAGE << std::endl;
     }
+    return false;
 }

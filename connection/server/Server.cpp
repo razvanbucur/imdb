@@ -95,7 +95,11 @@ void Server::WhileReceiving()
         }
 
         std::string message(buff);
-
+        if (message.empty()) {
+            std::cout << "Empty message received. Closing the connection" << std::endl;
+            CloseClientSocket();
+            continue;
+        }
         std::string returnValue = MessageInterpreter::InterpretMessage(message);
         if (returnValue == STOP_CODE)
         {
