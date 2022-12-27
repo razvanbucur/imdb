@@ -43,6 +43,12 @@ private:
     static bool IsValidName(std::string name);
     static bool IsValidEmail(std::string email);
     static bool EmailExists(std::string email);
+    static bool ModeratorORNot(std::string mod);
+    static bool Moderator(std::string mod);
+    static bool User(std::string user);
+    static bool Actor(std::string);
+    static bool Director(std::string);
+    static bool Movie(std::string);
 public:
     DataManager();
     ~DataManager();

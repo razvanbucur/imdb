@@ -110,7 +110,7 @@ char Application::getch()
 }
 bool Application::Register()
 {
-    std::string email, password, name;
+    std::string email, password, name, mod;
 
     std::cout << "Enter email: " << std::endl;
     std::cin >> email;
@@ -125,9 +125,11 @@ bool Application::Register()
     std::cout << std::endl;
     std::cout << "Enter name: " << std::endl;
     std::cin >> name;
+    std::cout<< "Moderator or user?"<<srd::endl;
+    std::cin >> mod;
 
     std::string message = OPERATION_REGISTER "," + email + "," + password + "," + name;
-    client->SendMessage(message); // to do: am trimis mesaj serverul il interpreteaza si-mi raspunde cu ceva,deci mai am de facut receive in client
+    client->SendMessage(message); 
     std::string recvMessage = client->ReceiveMessage();
 
     if (recvMessage == REG_SUCCESS_CODE)
