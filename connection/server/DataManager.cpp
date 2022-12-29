@@ -41,7 +41,7 @@ std::string DataManager::RegisterUser(std::vector<std::string> splittedMessage)
     sqlite3pp::database db(DATABASE_PATH);
 
     sqlite3pp::command query(
-        db, "INSERT INTO Users (ID, Email, Password, Name) VALUES (?, ?, ?, ?)");
+        db, "INSERT INTO Users (ID, Email, Password, Name, Mod) VALUES (?, ?, ?, ?, ?)");
     query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
                    << splittedMessage[1]
                    << splittedMessage[2]
@@ -56,12 +56,87 @@ bool DataManager::ModeratorORNot(std::string mod)
 {
     if (mod == "moderator")
     {
-        Moderator();
+        ShowModeratorMenu();
     }
     else if (mod == "user")
     {
-        User();
+        ShowUserMenu(); /// show user main menu (numele functiei) + plus cele de la actor director etc
     }
+    return false;
+}
+
+bool DataManager::ActorSearch(std::string)
+{
+    std::cout << "Which actor are you searching for" << std::endl;
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qry(db, "SELECT Name FROM Actor");
+
+    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    {
+        std::string actor;
+
+        for (int j = 0; j < qry.column_count(); ++j)
+        {
+            if (j == 0)
+            {
+                actor = (*i).get<char const *>(j);
+            }
+        }
+        std::string clActor;
+
+        clActor = actor;
+        // logica de cautare
+    }
+    return false;
+}
+bool DataManager::DirectorSearch(std::string)
+{
+    std::cout << "Which director are you searching for" << std::endl;
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qry(db, "SELECT Name FROM Director");
+
+    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    {
+        std::string director;
+
+        for (int j = 0; j < qry.column_count(); ++j)
+        {
+            if (j == 0)
+            {
+                director = (*i).get<char const *>(j);
+            }
+        }
+        std::string clDirector;
+
+        clDirector = director;
+        // logica de cautare
+    }
+    return false;
+}
+bool DataManager::MovieSearch(std::string)
+{
+    std::cout << "Which movie are you searching for" << std::endl;
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qry(db, "SELECT Name FROM Movie");
+
+    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    {
+        std::string movie;
+
+        for (int j = 0; j < qry.column_count(); ++j)
+        {
+            if (j == 0)
+            {
+                movie = (*i).get<char const *>(j);
+            }
+        }
+        std::string clMovie;
+
+        clMovie = movie;
+
+        // logica de cautare
+    }
+    return false;
 }
 
 bool DataManager::Actor(std::string)
@@ -71,28 +146,31 @@ bool DataManager::Actor(std::string)
     std::cout << "1. Search actor\t\t2. Add actor\t\t3. Delete actor by ID\t\t0. Quit" << std::endl;
     if (choice == 1)
     {
-        // logica de cautare
+        ActorSearch();
     }
     else if (choice == 2)
     {
         int actor;
-        std::cout << "Enter actor!"<<std::endl;
-        std::cin>>actor;
+        std::cout << "Enter actor!" << std::endl;
         sqlite3pp::database db(DATABASE_PATH);
 
-    sqlite3pp::command query(
-        db, "INSERT INTO Actor (ID, Name) VALUES (?, ?)");
-    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-                   << actor;
-                   
-    query.execute();
+        sqlite3pp::command query(
+            db, "INSERT INTO Actor (ID, Name) VALUES (?, ?)");
+        query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
+                       << actor;
+
+        query.execute();
     }
     else if (choice == 3)
     {
+        
         // logica de stergere
     }
-    else if (choice == 4)
+    else if (choice == 0)
     {
+        std::cout << "Closing program..." << std::endl;
+
+        exit(0);
         // logica de quit
     }
     return false;
@@ -104,28 +182,30 @@ bool DataManager::Director(std::string)
     std::cout << "1. Search director\t\t2. Add director\t\t3. Delete director by ID\t\t0. Quit" << std::endl;
     if (choice == 1)
     {
-        // logica de cautare
+        DirectorSearch();
     }
     else if (choice == 2)
     {
         int director;
-        std::cout << "Enter director!"<<std::endl;
-        std::cin>>director;
-            sqlite3pp::database db(DATABASE_PATH);
+        std::cout << "Enter director!" << std::endl;
+        sqlite3pp::database db(DATABASE_PATH);
 
-    sqlite3pp::command query(
-        db, "INSERT INTO Director (ID, Name) VALUES (?, ?)");
-    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-                   << director;
-                   
-    query.execute();
+        sqlite3pp::command query(
+            db, "INSERT INTO Director (ID, Name) VALUES (?, ?)");
+        query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
+                       << director;
+
+        query.execute();
     }
     else if (choice == 3)
     {
         // logica de stergere
     }
-    else if (choice == 4)
+    else if (choice == 0)
     {
+        std::cout << "Closing program..." << std::endl;
+
+        exit(0);
         // logica de quit
     }
     return false;
@@ -137,40 +217,44 @@ bool DataManager::Movie(std::string)
     std::cout << "1. Search movie\t\t2. Add movie\t\t3. Delete movie by ID\t\t0. Quit" << std::endl;
     if (choice == 1)
     {
-        // logica de cautare
+        MovieSearch();
     }
     else if (choice == 2)
     {
-         int name, releaseDate,category;
-        std::cout << "Enter movie name!"<<std::endl;
-        std::cin>>name;
-        std::coue<< "Enter release date!"<<std::endl
-        std::cin>>releaseDate;
-        std::cout<< "Enter the category!"<<std::endl;
-        std::cin>>category;
-            sqlite3pp::database db(DATABASE_PATH);
+        int name, releaseDate, category;
+        std::cout << "Enter movie name!" << std::endl;
+        std::cin >> name;
+        std::cout << "Enter release date!" << std::endl;
+        std::cin >> releaseDate;
+        std::cout << "Enter the category!" << std::endl;
+        std::cin >> category;
+        sqlite3pp::database db(DATABASE_PATH);
 
-    sqlite3pp::command query(
-        db, "INSERT INTO Movie (ID, Name, Release date, Category) VALUES (?, ?, ?, ?)");
-    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-                   <<name
-                   <<releaseDate
-                   <<category;
-                   
-    query.execute();
+        sqlite3pp::command query(
+            db, "INSERT INTO Movie (ID, Name, Release date, Category) VALUES (?, ?, ?, ?)");
+        query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
+                       << name
+                       << releaseDate
+                       << category;
+
+        query.execute();
     }
     else if (choice == 3)
     {
+
         // logica de stergere
     }
-    else if (choice == 4)
+    else if (choice == 0)
     {
+        std::cout << "Closing program..." << std::endl;
+
+        exit(0);
         // logica de quit
     }
     return false;
 }
 
-bool DataManager::Moderator(std::string)
+bool DataManager::ShowModeratorMenu(std::string)
 {
     int actor, movie, director;
     int choice;
@@ -179,18 +263,21 @@ bool DataManager::Moderator(std::string)
     std::cin >> choice;
     if (choice == 1)
     {
-        Actors();
+        Actor();
     }
     else if (choice == 2)
     {
-        Directors();
+        Director();
     }
     else if (choice == 3)
     {
-        Movies();
+        Movie();
     }
-    else if (choice == 4)
+    else if (choice == 0)
     {
+        std::cout << "Closing program..." << std::endl;
+
+        exit(0);
         // logica de quit
     }
     /*actor
@@ -208,8 +295,9 @@ bool DataManager::Moderator(std::string)
     return false;
 }
 
-bool DataManager::User(std::string)
+bool DataManager::ShowUserMenu(std::string)
 {
+
     int actor, movie, director;
     int choice;
     std::cout << "Enter choice:" << std::endl;
@@ -218,26 +306,26 @@ bool DataManager::User(std::string)
 
     if (choice == 1)
     {
-
-        std::cout << "Which actor are you searching for" << std::endl;
-        std::cin >> actor;
-        // logica de cautare
+        ActorSearch();
     }
+
     else if (choice == 2)
     {
-        std::cout << "Which director are you searching for" << std::endl;
-        std::cin >> director;
-        // logica de cautare
+        DirectorSearch();
     }
     else if (choice == 3)
     {
-        std::cout << "Which movie are you searching for" << std::endl;
-        std::cin >> movie;
-        // logica de cautare
+        MovieSearch();
+        /* Search actor (pentru toţi utilizatorii)
+         Search director (pentru toţi utilizatorii)
+         Search movie (pentru toţi utilizatorii)*/
     }
-    /* Search actor (pentru toţi utilizatorii)
-     Search director (pentru toţi utilizatorii)
-     Search movie (pentru toţi utilizatorii)*/
+    else if (choice == 0)
+    {
+        std::cout << "Closing program..." << std::endl;
+
+        exit(0);
+    }
     return false;
 }
 
@@ -318,7 +406,6 @@ std::string DataManager::LoginUser(std::vector<std::string> splittedMessage)
         {
             if (j == 0)
             {
-
                 dbEmail = (*i).get<char const *>(j);
             }
             if (j == 1)

@@ -125,10 +125,10 @@ bool Application::Register()
     std::cout << std::endl;
     std::cout << "Enter name: " << std::endl;
     std::cin >> name;
-    std::cout<< "Moderator or user?"<<srd::endl;
+    std::cout<< "Moderator or user?"<<std::endl;  //1 sau 2
     std::cin >> mod;
 
-    std::string message = OPERATION_REGISTER "," + email + "," + password + "," + name;
+    std::string message = OPERATION_REGISTER "," + email + "," + password + "," + name + "," + mod;  //verificat mod 
     client->SendMessage(message); 
     std::string recvMessage = client->ReceiveMessage();
 

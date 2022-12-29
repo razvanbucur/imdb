@@ -44,11 +44,14 @@ private:
     static bool IsValidEmail(std::string email);
     static bool EmailExists(std::string email);
     static bool ModeratorORNot(std::string mod);
-    static bool Moderator(std::string mod);
-    static bool User(std::string user);
-    static bool Actor(std::string);
-    static bool Director(std::string);
-    static bool Movie(std::string);
+    static bool ShowModeratorMenu(std::string);
+    static bool ShowUserMenu(std::string user);
+    static bool Actor(std::string actor);
+    static bool Director(std::string director);
+    static bool Movie(std::string movie);
+    static bool MovieSearch(std::string);
+    static bool ActorSearch(std::string);
+    static bool DirectorSearch(std::string);
 public:
     DataManager();
     ~DataManager();
