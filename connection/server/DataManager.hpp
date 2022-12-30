@@ -34,7 +34,7 @@
 #define LOGIN_SUCCESS_CODE "0"
 #define LOGIN_USER_PASS_INCORECT_CODE "1"
 
-
+#define ACTOR_ADD_SUCCESS_MESSAGE "Actor added successfully!"
 
 class DataManager
 
@@ -54,4 +54,6 @@ public:
     static std::string RegisterUser(std::vector<std::string> splittedMessage);
     static std::string LoginUser(std::vector<std::string> splittedMessage);
     static std::string GetUserType(std::string email);
+    static std::string SearchActor(std::string actorName);
+    static std::string ActorAdd(std::string actorName);
 };

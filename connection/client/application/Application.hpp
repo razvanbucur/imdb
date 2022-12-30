@@ -1,13 +1,22 @@
 #include "../Client.hpp"
 #include <utility>
-#include "include/sqlite3pp/sqlite3pp.h"
 #include <iostream>
-#include "UUIDGenerator.hpp"
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <unistd.h>
+#include <termios.h>
+
+#define DATABASE_PATH "/home/root/imdb/connection/server/databases/Log.db"
 
 #define OPERATION_STOP "0"
 #define OPERATION_REGISTER "1"
 #define OPERATION_LOGIN "2"
 #define OPERATION_GET_USERTYPE "3"
+#define OPERATION_ACTOR_SEARCH "4"
+#define OPERATION_ACTOR_ADD "5"
+
 #define APP_STOP "You stopped the application."
 #define VALID_CHOICE "Please enter a valid choice!"
 
@@ -49,15 +58,15 @@ private:
     void ModeratorOrNot(std::string userType);
     void ShowUserMenu();
     void ShowModeratorMenu();
-    bool ActorSearch();
-    bool DirectorSearch():
-    bool MovieSearch();
-    bool Actor();
-    bool Director();
-    bool Movie();
-    std::string AddMovie();
-    std::string AddDirector();
-    std::string AddActor();
+    void ActorSearch();
+    void DirectorSearch();
+    void MovieSearch();
+    void Actor();
+    void Director();
+    void Movie();
+    void AddMovie();
+    void AddDirector();
+    void AddActor();
 
 
 

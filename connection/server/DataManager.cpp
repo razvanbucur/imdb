@@ -166,7 +166,8 @@ std::string DataManager::LoginUser(std::vector<std::string> splittedMessage)
     return LOGIN_USER_PASS_INCORECT_CODE;
 }
 
-std::string DataManager::GetUserType(std::string email) {
+std::string DataManager::GetUserType(std::string email)
+{
     sqlite3pp::database db(DATABASE_PATH);
     sqlite3pp::query qry(db, "SELECT Email,UserType FROM Users");
 
@@ -183,7 +184,6 @@ std::string DataManager::GetUserType(std::string email) {
             {
                 dbUserType = (*i).get<char const *>(j);
             }
-
         }
         if (email == dbEmail)
         {
@@ -191,4 +191,47 @@ std::string DataManager::GetUserType(std::string email) {
         }
     }
     return "0";
+}
+
+std::string DataManager::SearchActor(std::string actorName)
+{
+    std::transform(actorName.begin(), actorName.end(), actorName.begin(), ::toupper);
+
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qry(db, "SELECT * FROM Actor");
+
+    std::string allActors;
+
+    // Momentan, se afiseaza doar numele actorilor gasiti
+    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    {
+        std::string currentActorId = (*i).get<char const *>(0);
+        std::string currentActorName = (*i).get<char const *>(1);
+
+        std::transform(currentActorName.begin(), currentActorName.end(), currentActorName.begin(), ::toupper);
+
+        if (currentActorName.find(actorName) != std::string::npos)
+        {
+            allActors += "ID: " + currentActorId + "\tName: " + currentActorName + "\n";
+        }
+    }
+
+    if (allActors.empty())
+    {
+        allActors = "No actors found with name: " + actorName;
+    }
+    return allActors;
+}
+
+std::string DataManager::ActorAdd(std::string actorName)
+{
+    sqlite3pp::database db(DATABASE_PATH);
+
+    // TODO: toate tabelele sa fie numele entitatii la plural (UserS, ActorS, MovieS, etc.)
+    sqlite3pp::command query(db, "INSERT INTO Actor (ID, Name) VALUES (?, ?)");
+    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
+                   << actorName;
+    query.execute();
+
+    return ACTOR_ADD_SUCCESS_MESSAGE;
 }

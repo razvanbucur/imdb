@@ -1,10 +1,4 @@
 #include "Application.hpp"
-#include <stdio.h>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <unistd.h>
-#include <termios.h>
 
 Application::Application()
 {
@@ -151,10 +145,10 @@ bool Application::ShowRegisterMenu()
     std::cout << std::endl;
     std::cout << "Enter name: " << std::endl;
     std::cin >> name;
-    std::cout << "Do you want to be a normal user (0) or a moderator (1)?" << std::endl; 
+    std::cout << "Do you want to be a normal user (0) or a moderator (1)?" << std::endl;
     std::cin >> mod;
 
-    std::string message = OPERATION_REGISTER "," + email + "," + password + "," + name + "," + mod; 
+    std::string message = OPERATION_REGISTER "," + email + "," + password + "," + name + "," + mod;
     client->SendMessage(message);
     std::string recvMessage = client->ReceiveMessage();
 
@@ -235,144 +229,136 @@ std::string Application::GetUserType(std::string email)
 
     return userType;
 }
-bool Application::ActorSearch()
+
+void Application::ActorSearch()
 {
     std::string actor;
-    std::cout << "Which actor are you searching for" << std::endl;
-    std::cin >> actor;
-    sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "SELECT Name FROM Actor");
+    std::cout << "Enter the actor's name you want to search for:" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, actor);
 
-    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
-    {
-
-        for (int j = 0; j < qry.column_count(); ++j)
-        {
-            if (j == 0)
-            {
-                actor = (*i).get<char const *>(j);
-            }
-        }
-        std::string clActor;
-
-        clActor = actor;
-        
-        // logica de cautare
-    }
-    return false;
+    std::string message = OPERATION_ACTOR_SEARCH "," + actor;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
-bool Application::DirectorSearch()
+void Application::DirectorSearch()
 {
-    std::string director;
-    std::cout << "Which director are you searching for" << std::endl;
-    std::cin >> director;
-    sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "SELECT Name FROM Director");
+    // std::string director;
+    // std::cout << "Which director are you searching for" << std::endl;
+    // std::cin >> director;
+    // sqlite3pp::database db(DATABASE_PATH);
+    // sqlite3pp::query qry(db, "SELECT Name FROM Director");
 
-    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
-    {
+    // for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    // {
 
-        for (int j = 0; j < qry.column_count(); ++j)
-        {
-            if (j == 0)
-            {
-                director = (*i).get<char const *>(j);
-            }
-        }
-        std::string clDirector;
+    //     for (int j = 0; j < qry.column_count(); ++j)
+    //     {
+    //         if (j == 0)
+    //         {
+    //             director = (*i).get<char const *>(j);
+    //         }
+    //     }
+    //     std::string clDirector;
 
-        clDirector = director;
-        // logica de cautare
-    }
-    return false;
+    //     clDirector = director;
+    //     // logica de cautare
+    // }
+    // return false;
 }
-bool Application::MovieSearch()
+void Application::MovieSearch()
 {
-    std::string movie;
-    std::cout << "Which movie are you searching for" << std::endl;
-    std::cin >> movie;
-    sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "SELECT Name FROM Movie");
+    // std::string movie;
+    // std::cout << "Which movie are you searching for" << std::endl;
+    // std::cin >> movie;
+    // sqlite3pp::database db(DATABASE_PATH);
+    // sqlite3pp::query qry(db, "SELECT Name FROM Movie");
 
-    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
-    {
-        std::string movie;
+    // for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    // {
+    //     std::string movie;
 
-        for (int j = 0; j < qry.column_count(); ++j)
-        {
-            if (j == 0)
-            {
-                movie = (*i).get<char const *>(j);
-            }
-        }
-        std::string clMovie;
+    //     for (int j = 0; j < qry.column_count(); ++j)
+    //     {
+    //         if (j == 0)
+    //         {
+    //             movie = (*i).get<char const *>(j);
+    //         }
+    //     }
+    //     std::string clMovie;
 
-        clMovie = movie;
+    //     clMovie = movie;
 
-        // logica de cautare
-    }
-    return false;
+    //     // logica de cautare
+    // }
+    // return false;
 }
-std::string Application::AddActor()
+void Application::AddActor()
 {
-    int actor;
-    std::cout << "Enter actor!" << std::endl;
-    std::cin >> actor;
-    sqlite3pp::database db(DATABASE_PATH);
-
-    sqlite3pp::command query(
-        db, "INSERT INTO Actor (ID, Name) VALUES (?, ?)");
-    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-                   << actor;
-    query.execute();
-}
-bool Application::Actor()
-{
-    int choice;
-    std::cout << "Enter choice:" << std::endl;
-    std::cout << "1. Search actor\t\t2. Add actor\t\t3. Delete actor by ID\t\t0. Quit" << std::endl;
-    if (choice == 1)
-    {
-        ActorSearch();
-    }
-    else if (choice == 2)
-    {
-        AddActor();
-    }
-    else if (choice == 3)
-    {
     std::string actor;
-    std::cout << "Which actor you want to delete?" << std::endl;
-    std::cin >> actor;
-    sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "DELETE FROM Actor WHERE Name='actor';");
-        // logica de stergere
-    }
-    else if (choice == 0)
-    {
-        std::cout << "Closing program..." << std::endl;
+    std::cout << "Enter the actor's name you want to add:" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, actor);
 
-        exit(0);
-        // logica de quit
-    }
-    return false;
+    std::string message = OPERATION_ACTOR_ADD "," + actor;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
-std::string Application::AddDirector()
+void Application::Actor()
 {
-    int director;
-    std::cout << "Enter director!" << std::endl;
-    std::cin >> director;
-    sqlite3pp::database db(DATABASE_PATH); // server-send message sparta in fucntie pe server
+    bool isRunning = true;
+    while (isRunning)
+    {
+        int choice;
+        std::cout << "Enter choice:" << std::endl;
+        std::cout << "1. Search actor\t\t2. Add actor\t\t3. Delete actor by ID\t\t0. Back to previous menu" << std::endl;
+        std::cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            ActorSearch();
+            break;
+        case 2:
 
-    sqlite3pp::command query(
-        db, "INSERT INTO Director (ID, Name) VALUES (?, ?)");
+            AddActor();
+            break;
+        case 3:
+            // std::string actor;
+            // std::cout << "Which
+            // actor you want to delete?" << std::endl;
+            // std::cin >> actor;
+            // sqlite3pp::database db(DATABASE_PATH);
+            // sqlite3pp::query qry(db, "DELETE FROM Actor WHERE Name=?");
+            // qry.binder() << actor;
+            //     // logica de stergere
+            break;
+        case 0:
+            isRunning = false;
+            break;
+        default:
+            std::cout << "Invalid choice!" << std::endl;
+            break;
+        }
+    }
+}
+void Application::AddDirector()
+{
+    // int director;
+    // std::cout << "Enter director!" << std::endl;
+    // std::cin >> director;
+    // sqlite3pp::database db(DATABASE_PATH); // server-send message sparta in fucntie pe server
 
-    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-                   << director;
-    query.execute();
+    // sqlite3pp::command query(
+    //     db, "INSERT INTO Director (ID, Name) VALUES (?, ?)");
+
+    // query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
+    //                << director;
+    // query.execute();
 }
 
-bool Application::Director()
+void Application::Director()
 {
     int choice;
     std::cout << "Enter choice:" << std::endl;
@@ -388,12 +374,12 @@ bool Application::Director()
     }
     else if (choice == 3)
     {
-        std::string director;
-    std::cout << "Which director you want to delete?" << std::endl;
-    std::cin >> director;
-    sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "DELETE FROM Director WHERE Name='director';");
-        // logica de stergere
+        //     std::string director;
+        // std::cout << "Which director you want to delete?" << std::endl;
+        // std::cin >> director;
+        // sqlite3pp::database db(DATABASE_PATH);
+        // sqlite3pp::query qry(db, "DELETE FROM Director WHERE Name='director';");
+        //     // logica de stergere
     }
     else if (choice == 0)
     {
@@ -402,35 +388,34 @@ bool Application::Director()
         exit(0);
         // logica de quit
     }
-    return false;
 }
-std::string Application::AddMovie()
+void Application::AddMovie()
 {
-    int name, releaseDate, category;
-    std::cout << "Enter movie name!" << std::endl;
-    std::cin >> name;
-    std::cout << "Enter release date!" << std::endl;
-    std::cin >> releaseDate;
-    std::cout << "Enter the category!" << std::endl;
-    std::cin >> category;
-    sqlite3pp::database db(DATABASE_PATH);
+    // int name, releaseDate, category;
+    // std::cout << "Enter movie name!" << std::endl;
+    // std::cin >> name;
+    // std::cout << "Enter release date!" << std::endl;
+    // std::cin >> releaseDate;
+    // std::cout << "Enter the category!" << std::endl;
+    // std::cin >> category;
+    // sqlite3pp::database db(DATABASE_PATH);
 
-    sqlite3pp::command query(
-        db, "INSERT INTO Movie (ID, Name, Release date, Category) VALUES (?, ?, ?, ?)");
-    query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-                   << name
-                   << releaseDate
-                   << category;
+    // sqlite3pp::command query(
+    //     db, "INSERT INTO Movie (ID, Name, Release date, Category) VALUES (?, ?, ?, ?)");
+    // query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
+    //                << name
+    //                << releaseDate
+    //                << category;
 
-    query.execute();
+    // query.execute();
 }
 
-bool Application::Movie()
+void Application::Movie()
 {
     int choice;
-    std::cout << "Enter choice:" << std::endl;
-    std::cin >> movie;
     std::cout << "1. Search movie\t\t2. Add movie\t\t3. Delete movie by ID\t\t0. Quit" << std::endl;
+    std::cout << "Enter choice:" << std::endl;
+    std::cin >> choice;
     if (choice == 1)
     {
         MovieSearch();
@@ -441,12 +426,12 @@ bool Application::Movie()
     }
     else if (choice == 3)
     {
-    std::string movie;
-    std::cout << "Which movie you want to delete?" << std::endl;
-    std::cin >> movie;
-    sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "DELETE FROM Movie WHERE Name='movie';");
-        // logica de stergere
+        // std::string movie;
+        // std::cout << "Which movie you want to delete?" << std::endl;
+        // std::cin >> movie;
+        // sqlite3pp::database db(DATABASE_PATH);
+        // sqlite3pp::query qry(db, "DELETE FROM Movie WHERE Name='movie';");
+        //     // logica de stergere
     }
     else if (choice == 0)
     {
@@ -455,40 +440,43 @@ bool Application::Movie()
         exit(0);
         // logica de quit
     }
-    return false;
 }
 
-bool Application::ShowModeratorMenu()
+void Application::ShowModeratorMenu()
 {
-    int actor, movie, director;
-    int choice;
-    std::cout << "Enter choice:" << std::endl;
-    std::cout << "1. Actors\t\t2. Directors\t\t3. Movies\t\t0. Quit" << std::endl;
-    std::cin >> choice;
-    if (choice == 1)
+    while (true)
     {
-        Actor();
-    }
-    else if (choice == 2)
-    {
-        Director();
-    }
-    else if (choice == 3)
-    {
-        Movie();
-    }
-    else if (choice == 0)
-    {
-        std::cout << "Closing program..." << std::endl;
+        int actor, movie, director;
+        int choice;
+        std::cout << "Enter choice:" << std::endl;
+        std::cout << "1. Actors\t\t2. Directors\t\t3. Movies\t\t0. Quit" << std::endl;
+        std::cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            Actor();
+            break;
+        case 2:
 
-        exit(0);
-        // logica de quit
-    }
+            Director();
+            break;
+        case 3:
+            Movie();
+            break;
+        case 0:
+            std::cout << "Closing program..." << std::endl;
 
-    return false;
+            exit(0);
+            // logica de quit
+            break;
+        default:
+            std::cout << "Invalid choice!" << std::endl;
+            break;
+        }
+    }
 }
 
-bool Application::ShowUserMenu()
+void Application::ShowUserMenu()
 {
 
     int actor, movie, director;
@@ -519,7 +507,6 @@ bool Application::ShowUserMenu()
 
         exit(0);
     }
-    return false;
 }
 
 void Application::ModeratorOrNot(std::string userType)
@@ -531,62 +518,5 @@ void Application::ModeratorOrNot(std::string userType)
     else
     {
         ShowUserMenu();
-    }
-}
-void Application::ShowModeratorMenu()
-{
-    int actor, movie, director;
-    int choice;
-    std::cout << "Enter choice:" << std::endl;
-    std::cout << "1. Actors\t\t2. Directors\t\t3. Movies\t\t0. Quit" << std::endl;
-    std::cin >> choice;
-    if (choice == 1)
-    {
-        std::cout << "Actor()" << std::endl;
-    }
-    else if (choice == 2)
-    {
-        std::cout << "Director();" << std::endl;
-    }
-    else if (choice == 3)
-    {
-        std::cout << "Movie();" << std::endl;
-    }
-    else if (choice == 0)
-    {
-        std::cout << "Closing program..." << std::endl;
-
-        exit(0);
-        // logica de quit
-    }
-}
-
-void Application::ShowUserMenu()
-{
-
-    int actor, movie, director;
-    int choice;
-    std::cout << "Enter choice:" << std::endl;
-    std::cout << "1. Search actor\t\t2. Search director\t\t3. Search movie\t\t0. Quit" << std::endl;
-    std::cin >> choice;
-
-    if (choice == 1)
-    {
-        std::cout << "ActorSearch();" << std::endl;
-    }
-
-    else if (choice == 2)
-    {
-        std::cout << "DirectorSearch();" << std::endl;
-    }
-    else if (choice == 3)
-    {
-        std::cout << "MovieSearch();    " << std::endl;
-    }
-    else if (choice == 0)
-    {
-        std::cout << "Closing program..." << std::endl;
-
-        exit(0);
     }
 }
