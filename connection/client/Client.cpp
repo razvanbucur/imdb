@@ -51,8 +51,7 @@ void Client::ConnectServer()
 }
 void Client::SendMessage(std::string message)
 {
-    _sendRes = send(_sock, message.c_str(), message.size() + 1, 0); // to do: ce e cu acel 0(flag) la final
-
+    _sendRes = send(_sock, message.c_str(), message.size() + 1, 0); 
     if (_sendRes == -1)
     {
 

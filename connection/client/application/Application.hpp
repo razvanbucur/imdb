@@ -1,5 +1,8 @@
 #include "../Client.hpp"
 #include <utility>
+#include "include/sqlite3pp/sqlite3pp.h"
+#include <iostream>
+#include "UUIDGenerator.hpp"
 
 #define OPERATION_STOP "0"
 #define OPERATION_REGISTER "1"
@@ -46,7 +49,20 @@ private:
     void ModeratorOrNot(std::string userType);
     void ShowUserMenu();
     void ShowModeratorMenu();
+    bool ActorSearch();
+    bool DirectorSearch():
+    bool MovieSearch();
+    bool Actor();
+    bool Director();
+    bool Movie();
+    std::string AddMovie();
+    std::string AddDirector();
+    std::string AddActor();
+
+
+
 public:
+
     Application();
     ~Application();
     void StartApplication();
