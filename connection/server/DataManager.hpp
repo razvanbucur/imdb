@@ -15,6 +15,7 @@
 #define REG_EMAIL_EXISTS_MESSAGE "Email already exists"
 #define REG_INSECURE_PASS_MESSAGE "Insecure password"
 #define REG_INVALID_NAME_MESSAGE "Invalid name!"
+#define REG_INVALID_USERTYPE_MESSAGE "Invalid user type!"
 
 #define LOGIN_SUCCESS_MESSAGE "Login successfull!"
 #define LOGIN_USER_PASS_INCORECT_MESSAGE "Username or password incorect!"
@@ -28,6 +29,7 @@
 #define REG_EMAIL_EXISTS_CODE "3"
 #define REG_INSECURE_PASS_CODE "4"
 #define REG_INVALID_NAME_CODE "5"
+#define REG_INVALID_USERTYPE_CODE "6"
 
 #define LOGIN_SUCCESS_CODE "0"
 #define LOGIN_USER_PASS_INCORECT_CODE "1"
@@ -43,19 +45,13 @@ private:
     static bool IsValidName(std::string name);
     static bool IsValidEmail(std::string email);
     static bool EmailExists(std::string email);
-    static bool ModeratorORNot(std::string mod);
-    static bool ShowModeratorMenu(std::string);
-    static bool ShowUserMenu(std::string user);
-    static bool Actor(std::string actor);
-    static bool Director(std::string director);
-    static bool Movie(std::string movie);
-    static bool MovieSearch(std::string);
-    static bool ActorSearch(std::string);
-    static bool DirectorSearch(std::string);
+    static bool IsValidUserType(std::string userType);
+    
 public:
     DataManager();
     ~DataManager();
 
     static std::string RegisterUser(std::vector<std::string> splittedMessage);
     static std::string LoginUser(std::vector<std::string> splittedMessage);
+    static std::string GetUserType(std::string email);
 };

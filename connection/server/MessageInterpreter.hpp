@@ -8,6 +8,7 @@
 #define OPERATION_STOP "0"
 #define OPERATION_REGISTER "1"
 #define OPERATION_LOGIN "2"
+#define OPERATION_GET_USERTYPE "3"
 
 class MessageInterpreter
 {

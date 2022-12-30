@@ -42,6 +42,8 @@ std::string MessageInterpreter::InterpretMessage(std::string message)
     else if (currentOperation == OPERATION_LOGIN)
     {
         returnValue = DataManager::LoginUser(splittedMessage);
+    } else if (currentOperation == OPERATION_GET_USERTYPE) {
+        returnValue = DataManager::GetUserType(splittedMessage[1]);
     }
     return returnValue;
 }
