@@ -33,5 +33,5 @@ public:
     Server(int listenPort);
     ~Server();
 
-    void StartServer();
+    bool StartServer();
 };

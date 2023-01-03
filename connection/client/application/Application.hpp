@@ -16,6 +16,12 @@
 #define OPERATION_GET_USERTYPE "3"
 #define OPERATION_ACTOR_SEARCH "4"
 #define OPERATION_ACTOR_ADD "5"
+#define OPERATION_DIRECTOR_ADD "6"
+#define OPERATION_MOVIE_ADD "7"
+#define OPERATION_DIRECTOR_SEARCH "8"
+#define OPERATION_MOVIE_SEARCH "9"
+
+#define OPERATION_ACTOR_DELETE "10"
 
 #define APP_STOP "You stopped the application."
 #define VALID_CHOICE "Please enter a valid choice!"
@@ -67,7 +73,7 @@ private:
     void AddMovie();
     void AddDirector();
     void AddActor();
-
+    void DeleteACtor();
 
 
 public:

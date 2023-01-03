@@ -7,14 +7,14 @@ Server::Server(int listenPort)
 
 Server::~Server() {}
 
-void Server::StartServer()
+bool Server::StartServer()
 {
 
     CreateSocket();
     if (_listenSocket == -1)
     {
         std::cout << "Can't create a socket!" << std::endl;
-        return;
+        return false;
     }
 
     std::cout << "Socket was created" << std::endl;
@@ -22,14 +22,14 @@ void Server::StartServer()
     if (BindSocket() == 1)
     {
         std::cout << "Can't bind socket to IP/port" << std::endl;
-        return;
+        return false;
     }
     std::cout << "Bind was succesfull" << std::endl;
 
     if (StartListening() == 1)
     {
         std::cout << "Can't listen!" << std::endl;
-        return;
+        return false;
     }
     std::cout << "Listen was created" << std::endl;
 
@@ -37,7 +37,7 @@ void Server::StartServer()
     if (_clientSocket == -1)
     {
         std::cout << "Problem with client connecting!" << std::endl;
-        return;
+        return false;
     }
     std::cout << "Call was accepted" << std::endl;
 
@@ -45,6 +45,8 @@ void Server::StartServer()
 
     CloseListenSocket();
     std::cout << "Socket was closed" << std::endl;
+
+    return true;
 }
 
 void Server::CreateSocket()

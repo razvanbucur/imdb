@@ -4,9 +4,10 @@ int main()
 {
 
     Server server = Server(54001);
-    while (true)
+bool couldStartServer = true;
+    while (couldStartServer)
     {
-        server.StartServer();
+        couldStartServer = server.StartServer();
     }
     return 0;
 }

@@ -244,55 +244,23 @@ void Application::ActorSearch()
 }
 void Application::DirectorSearch()
 {
-    // std::string director;
-    // std::cout << "Which director are you searching for" << std::endl;
-    // std::cin >> director;
-    // sqlite3pp::database db(DATABASE_PATH);
-    // sqlite3pp::query qry(db, "SELECT Name FROM Director");
-
-    // for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
-    // {
-
-    //     for (int j = 0; j < qry.column_count(); ++j)
-    //     {
-    //         if (j == 0)
-    //         {
-    //             director = (*i).get<char const *>(j);
-    //         }
-    //     }
-    //     std::string clDirector;
-
-    //     clDirector = director;
-    //     // logica de cautare
-    // }
-    // return false;
+    std::string director;
+    std::cout << "Which director are you searching for" << std::endl;
+    std::cin >> director;
+    std::string message = OPERATION_DIRECTOR_SEARCH "," + director;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
 void Application::MovieSearch()
 {
-    // std::string movie;
-    // std::cout << "Which movie are you searching for" << std::endl;
-    // std::cin >> movie;
-    // sqlite3pp::database db(DATABASE_PATH);
-    // sqlite3pp::query qry(db, "SELECT Name FROM Movie");
-
-    // for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
-    // {
-    //     std::string movie;
-
-    //     for (int j = 0; j < qry.column_count(); ++j)
-    //     {
-    //         if (j == 0)
-    //         {
-    //             movie = (*i).get<char const *>(j);
-    //         }
-    //     }
-    //     std::string clMovie;
-
-    //     clMovie = movie;
-
-    //     // logica de cautare
-    // }
-    // return false;
+    std::string movie;
+    std::cout << "Which movie are you searching for" << std::endl;
+    std::cin >> movie;
+    std::string message = OPERATION_MOVIE_SEARCH "," + movie;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
 void Application::AddActor()
 {
@@ -306,6 +274,20 @@ void Application::AddActor()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 }
+void Application::DeleteActor()
+{
+    std::string id;
+    std::cout << "Which actor you want to delete?" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, id);
+    std::string message = OPERATION_ACTOR_DELETE "," + id;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
+
+    // logica de stergere
+}
+
 void Application::Actor()
 {
     bool isRunning = true;
@@ -325,14 +307,8 @@ void Application::Actor()
             AddActor();
             break;
         case 3:
-            // std::string actor;
-            // std::cout << "Which
-            // actor you want to delete?" << std::endl;
-            // std::cin >> actor;
-            // sqlite3pp::database db(DATABASE_PATH);
-            // sqlite3pp::query qry(db, "DELETE FROM Actor WHERE Name=?");
-            // qry.binder() << actor;
-            //     // logica de stergere
+            DeleteActor();
+
             break;
         case 0:
             isRunning = false;
@@ -345,25 +321,23 @@ void Application::Actor()
 }
 void Application::AddDirector()
 {
-    // int director;
-    // std::cout << "Enter director!" << std::endl;
-    // std::cin >> director;
-    // sqlite3pp::database db(DATABASE_PATH); // server-send message sparta in fucntie pe server
+    std::string director;
+    std::cout << "Enter the directors's name you want to add:" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, director);
 
-    // sqlite3pp::command query(
-    //     db, "INSERT INTO Director (ID, Name) VALUES (?, ?)");
-
-    // query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-    //                << director;
-    // query.execute();
+    std::string message = OPERATION_DIRECTOR_ADD "," + director;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
 
 void Application::Director()
 {
     int choice;
     std::cout << "Enter choice:" << std::endl;
-    std::cin >> choice;
     std::cout << "1. Search director\t\t2. Add director\t\t3. Delete director by ID\t\t0. Quit" << std::endl;
+    std::cin >> choice;
     if (choice == 1)
     {
         DirectorSearch();
@@ -391,23 +365,21 @@ void Application::Director()
 }
 void Application::AddMovie()
 {
-    // int name, releaseDate, category;
-    // std::cout << "Enter movie name!" << std::endl;
-    // std::cin >> name;
-    // std::cout << "Enter release date!" << std::endl;
-    // std::cin >> releaseDate;
-    // std::cout << "Enter the category!" << std::endl;
-    // std::cin >> category;
-    // sqlite3pp::database db(DATABASE_PATH);
+    std::string movieName, releaseDate, category;
+    std::cout << "Enter movie name!" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, movieName);
+    std::cout << "Enter release date!" << std::endl;
 
-    // sqlite3pp::command query(
-    //     db, "INSERT INTO Movie (ID, Name, Release date, Category) VALUES (?, ?, ?, ?)");
-    // query.binder() << UUIDGenerator::Generate(UUID_PREFIX_USER)
-    //                << name
-    //                << releaseDate
-    //                << category;
+    std::getline(std::cin, releaseDate);
+    std::cout << "Enter the category!" << std::endl;
 
-    // query.execute();
+    std::getline(std::cin, category);
+
+    std::string message = OPERATION_MOVIE_ADD "," + movieName + "," + releaseDate + "," + category;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
 
 void Application::Movie()

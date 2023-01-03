@@ -50,8 +50,27 @@ std::string MessageInterpreter::InterpretMessage(std::string message)
     {
         returnValue = DataManager::SearchActor(splittedMessage[1]);
     }
-    else if (currentOperation == OPERATION_ACTOR_ADD) {
+    else if (currentOperation == OPERATION_ACTOR_ADD)
+    {
         returnValue = DataManager::ActorAdd(splittedMessage[1]);
     }
+    else if (currentOperation == OPERATION_DIRECTOR_ADD)
+    {
+        returnValue = DataManager::DirectorAdd(splittedMessage[1]);
+    }
+    else if (currentOperation == OPERATION_MOVIE_ADD)
+    {
+        returnValue = DataManager::MovieAdd(splittedMessage);
+    }
+    else if (currentOperation == OPERATION_DIRECTOR_SEARCH)
+    {
+        returnValue = DataManager::SearchDirector(splittedMessage[1]);
+    }
+    else if (currentOperation == OPERATION_MOVIE_SEARCH)
+    {
+        returnValue = DataManager::SearchMovie(splittedMessage[1]);
+    }
+
+
     return returnValue;
 }

@@ -35,6 +35,8 @@
 #define LOGIN_USER_PASS_INCORECT_CODE "1"
 
 #define ACTOR_ADD_SUCCESS_MESSAGE "Actor added successfully!"
+#define DIRECTOR_ADD_SUCCES_MESSAGE "Director added successfully!"
+#define MOVIE_ADD_SUCCES_MESSAGE "Movie added successfully!"
 
 class DataManager
 
@@ -55,5 +57,9 @@ public:
     static std::string LoginUser(std::vector<std::string> splittedMessage);
     static std::string GetUserType(std::string email);
     static std::string SearchActor(std::string actorName);
+    static std::string SearchDirector (std::string directorName);
     static std::string ActorAdd(std::string actorName);
+    static std::string SearchMovie(std::string movieName);
+    static std::string DirectorAdd(std::string directorName);
+    static std::string MovieAdd(std::vector<std::string> splittedMessage);
 };
