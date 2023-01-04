@@ -143,8 +143,9 @@ bool Application::ShowRegisterMenu()
         ch = getch();
     }
     std::cout << std::endl;
-    std::cout << "Enter name: " << std::endl;
-    std::cin >> name;
+    std::cout << "Enter your name: " << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, name);
     std::cout << "Do you want to be a normal user (0) or a moderator (1)?" << std::endl;
     std::cin >> mod;
 
@@ -245,8 +246,9 @@ void Application::ActorSearch()
 void Application::DirectorSearch()
 {
     std::string director;
-    std::cout << "Which director are you searching for" << std::endl;
-    std::cin >> director;
+    std::cout << "Enter the director's name you want to search for:" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, director);
     std::string message = OPERATION_DIRECTOR_SEARCH "," + director;
     client->SendMessage(message);
     std::string receivedMessage = client->ReceiveMessage();
@@ -255,8 +257,9 @@ void Application::DirectorSearch()
 void Application::MovieSearch()
 {
     std::string movie;
-    std::cout << "Which movie are you searching for" << std::endl;
-    std::cin >> movie;
+    std::cout << "Enter the movie name you want to search for:" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, movie);
     std::string message = OPERATION_MOVIE_SEARCH "," + movie;
     client->SendMessage(message);
     std::string receivedMessage = client->ReceiveMessage();
@@ -285,7 +288,29 @@ void Application::DeleteActor()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 
-    // logica de stergere
+}
+
+void Application::DeleteDirector()
+{
+    std::string id;
+    std::cout << "Which director you want to delete?" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, id);
+    std::string message = OPERATION_DIRECTOR_DELETE "," + id;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
+}
+void Application::DeleteMovie()
+{
+    std::string id;
+    std::cout << "Which movie you want to delete?" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, id);
+    std::string message = OPERATION_MOVIE_DELETE "," + id;
+    client->SendMessage(message);
+    std::string receivedMessage = client->ReceiveMessage();
+    std::cout << receivedMessage << std::endl;
 }
 
 void Application::Actor()
@@ -348,12 +373,7 @@ void Application::Director()
     }
     else if (choice == 3)
     {
-        //     std::string director;
-        // std::cout << "Which director you want to delete?" << std::endl;
-        // std::cin >> director;
-        // sqlite3pp::database db(DATABASE_PATH);
-        // sqlite3pp::query qry(db, "DELETE FROM Director WHERE Name='director';");
-        //     // logica de stergere
+        DeleteDirector();
     }
     else if (choice == 0)
     {
@@ -398,12 +418,7 @@ void Application::Movie()
     }
     else if (choice == 3)
     {
-        // std::string movie;
-        // std::cout << "Which movie you want to delete?" << std::endl;
-        // std::cin >> movie;
-        // sqlite3pp::database db(DATABASE_PATH);
-        // sqlite3pp::query qry(db, "DELETE FROM Movie WHERE Name='movie';");
-        //     // logica de stergere
+        DeleteMovie();
     }
     else if (choice == 0)
     {
@@ -429,7 +444,6 @@ void Application::ShowModeratorMenu()
             Actor();
             break;
         case 2:
-
             Director();
             break;
         case 3:
@@ -437,9 +451,8 @@ void Application::ShowModeratorMenu()
             break;
         case 0:
             std::cout << "Closing program..." << std::endl;
-
             exit(0);
-            // logica de quit
+            
             break;
         default:
             std::cout << "Invalid choice!" << std::endl;
@@ -450,34 +463,33 @@ void Application::ShowModeratorMenu()
 
 void Application::ShowUserMenu()
 {
-
-    int actor, movie, director;
-    int choice;
-    std::cout << "Enter choice:" << std::endl;
-    std::cout << "1. Search actor\t\t2. Search director\t\t3. Search movie\t\t0. Quit" << std::endl;
-    std::cin >> choice;
-
-    if (choice == 1)
+    while (true)
     {
-        ActorSearch();
-    }
 
-    else if (choice == 2)
-    {
-        DirectorSearch();
-    }
-    else if (choice == 3)
-    {
-        MovieSearch();
-        /* Search actor (pentru toţi utilizatorii)
-         Search director (pentru toţi utilizatorii)
-         Search movie (pentru toţi utilizatorii)*/
-    }
-    else if (choice == 0)
-    {
-        std::cout << "Closing program..." << std::endl;
-
-        exit(0);
+        int actor, movie, director;
+        int choice;
+        std::cout << "Enter choice:" << std::endl;
+        std::cout << "1. Search actor\t\t2. Search director\t\t3. Search movie\t\t0. Quit" << std::endl;
+        std::cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            ActorSearch();
+            break;
+        case 2:
+            DirectorSearch();
+            break;
+        case 3:
+            MovieSearch();
+            break;
+        case 0:
+            std::cout << "Closing program..." << std::endl;
+            exit(0);
+            break;
+        default:
+            std::cout << "Invalid choice!" << std::endl;
+            break;
+        }
     }
 }
 

@@ -16,10 +16,6 @@ void Client::StartClient()
     std::cout << "Socket was created" << std::endl;
     HintStructure();
     ConnectServer();
-    if (_connectRes == -1)
-    {
-        std::cout << "Connection not possible!" << std::endl;
-    }
 }
 
 void Client::StopClient(std::string closingMessage)
@@ -46,7 +42,8 @@ void Client::ConnectServer()
     _connectRes = connect(_sock, (sockaddr *)&_settings, sizeof(_settings));
     if (_connectRes == -1)
     {
-        return;
+        std::cout << "Connection not possible!" << std::endl;
+        CloseClient();
     }
 }
 void Client::SendMessage(std::string message)

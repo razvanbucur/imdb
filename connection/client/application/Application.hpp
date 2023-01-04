@@ -22,6 +22,8 @@
 #define OPERATION_MOVIE_SEARCH "9"
 
 #define OPERATION_ACTOR_DELETE "10"
+#define OPERATION_DIRECTOR_DELETE "11"
+#define OPERATION_MOVIE_DELETE "12"
 
 #define APP_STOP "You stopped the application."
 #define VALID_CHOICE "Please enter a valid choice!"
@@ -73,7 +75,9 @@ private:
     void AddMovie();
     void AddDirector();
     void AddActor();
-    void DeleteACtor();
+    void DeleteActor();
+    void DeleteDirector();
+    void DeleteMovie();
 
 
 public:

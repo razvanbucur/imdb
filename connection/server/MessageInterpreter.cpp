@@ -70,6 +70,19 @@ std::string MessageInterpreter::InterpretMessage(std::string message)
     {
         returnValue = DataManager::SearchMovie(splittedMessage[1]);
     }
+    else if (currentOperation == OPERATION_ACTOR_DELETE)
+    {
+        returnValue = DataManager::DeleteActor(splittedMessage[1]);
+    }
+    else if (currentOperation == OPERATION_DIRECTOR_DELETE)
+    {
+        returnValue = DataManager::DeleteDirector(splittedMessage[1]);
+    }
+    else if (currentOperation == OPERATION_MOVIE_DELETE)
+    {
+        returnValue = DataManager::DeleteMovie(splittedMessage[1]);
+    }
+
 
 
     return returnValue;

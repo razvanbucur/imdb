@@ -218,7 +218,7 @@ std::string DataManager::SearchActor(std::string actorName)
 
     if (allActors.empty())
     {
-        allActors = "No actors found with name: " + actorName;
+        allActors = "No actors found with the name: " + actorName;
     }
     return allActors;
 }
@@ -227,7 +227,7 @@ std::string DataManager::SearchDirector(std::string directorName)
 {
     std::transform(directorName.begin(), directorName.end(), directorName.begin(), ::toupper);
     sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "SELECT Name FROM Directors");
+    sqlite3pp::query qry(db, "SELECT * FROM Directors");
 
     std::string allDirectors;
 
@@ -246,7 +246,7 @@ std::string DataManager::SearchDirector(std::string directorName)
 
     if (allDirectors.empty())
     {
-        allDirectors = "No directors found with name: " + directorName;
+        allDirectors = "No directors found with the name: " + directorName;
     }
     return allDirectors;
 }
@@ -276,7 +276,7 @@ std::string DataManager::SearchMovie(std::string movieName)
 
     if (allMovies.empty())
     {
-        allMovies = "No movies found with name: " + movieName;
+        allMovies = "No movies found with the name: " + movieName;
     }
     return allMovies;
 }
@@ -331,41 +331,65 @@ std::string DataManager::MovieAdd(std::vector<std::string> splittedMessage)
     return MOVIE_ADD_SUCCES_MESSAGE;
 }
 
-std::string DataManager::DeleteActor(std::string deleteActor)
+std::string DataManager::DeleteActor(std::string deleteActorId)
 {
     sqlite3pp::database db(DATABASE_PATH);
-    sqlite3pp::query qry(db, "SELECT ID FROM Actors");
-
-    for (sqlite3pp::query::iterator i = qry.begin(); i != qry.end(); ++i)
+    sqlite3pp::query qrySelect(db, "SELECT ID FROM Actors");
+    for (sqlite3pp::query::iterator i = qrySelect.begin(); i != qrySelect.end(); ++i)
     {
         std::string dbId;
-        for (int j = 0; j < qry.column_count(); ++j)
+
+        dbId = (*i).get<char const *>(0);
+        
+        if (deleteActorId == dbId)
         {
-            if (j == 0)
-            {
-                dbId = (*i).get<char const *>(j);
-            }
-        }
-        if (deleteActor == dbId)
-        {
-            sqlite3pp::database db(DATABASE_PATH);
-            sqlite3pp::query qry(db, "DELETE FROM Actors WHERE ID values (?)");
+            sqlite3pp::command qryDelete(db, "DELETE FROM Actors WHERE ID = (?)");
+            qryDelete.binder() << dbId;
+            qryDelete.execute();
+            return ACTOR_DELETED_SUCCES;
         }
     }
-
-    return "0";
-
-    SELECT *FROM Actors WHERE ID = 'actor_123';
-
-    cate rezultate am avut la select->0 sau 1
-
-        if (rezultate == 1)
-    {
-        DELETE FROM Actors WHERE ID = 'actor_123';
-        sendMessage("Am sters actorul cu id-ul " + actor_id)
-    }
-    else
-    {
-        sendMessage("Actorul cu id-ul " + actor_id + " nu se gaseste in baza de date, deci nu am avut ce sa sterg")
-    }
+    return ACTOR_NOT_IN_DB;
 }
+std::string DataManager::DeleteDirector(std::string deleteDirectorId)
+{
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qrySelect(db, "SELECT ID FROM Directors");
+    for (sqlite3pp::query::iterator i = qrySelect.begin(); i != qrySelect.end(); ++i)
+    {
+        std::string dbId;
+
+        dbId = (*i).get<char const *>(0);
+        
+        if (deleteDirectorId == dbId)
+        {
+            sqlite3pp::command qryDelete(db, "DELETE FROM Directors WHERE ID = (?)");
+            qryDelete.binder() << dbId;
+            qryDelete.execute();
+            return DIRECTOR_DELETED_SUCCES;
+        }
+    }
+    return DIRECTOR_NOT_IN_DB;
+}
+std::string DataManager::DeleteMovie(std::string deleteMovieId)
+{
+    sqlite3pp::database db(DATABASE_PATH);
+    sqlite3pp::query qrySelect(db, "SELECT ID FROM Movies");
+    for (sqlite3pp::query::iterator i = qrySelect.begin(); i != qrySelect.end(); ++i)
+    {
+        std::string dbId;
+
+        dbId = (*i).get<char const *>(0);
+        
+        if (deleteMovieId == dbId)
+        {
+            sqlite3pp::command qryDelete(db, "DELETE FROM Movies WHERE ID = (?)");
+            qryDelete.binder() << dbId;
+            qryDelete.execute();
+            return MOVIE_DELETED_SUCCES;
+        }
+    }
+    return MOVIE_NOT_IN_DB;
+}
+
+

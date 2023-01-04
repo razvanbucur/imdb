@@ -38,6 +38,12 @@
 #define DIRECTOR_ADD_SUCCES_MESSAGE "Director added successfully!"
 #define MOVIE_ADD_SUCCES_MESSAGE "Movie added successfully!"
 
+#define ACTOR_DELETED_SUCCES "Actor deleted successfully!"
+#define ACTOR_NOT_IN_DB "The actor isn't present in database!"
+#define DIRECTOR_DELETED_SUCCES "Director deleted successfully"
+#define DIRECTOR_NOT_IN_DB "The director isn't present in database!"
+#define MOVIE_DELETED_SUCCES "Movie deleted successfully!"
+#define MOVIE_NOT_IN_DB "The movie isn't present in database!"
 class DataManager
 
 {
@@ -62,4 +68,7 @@ public:
     static std::string SearchMovie(std::string movieName);
     static std::string DirectorAdd(std::string directorName);
     static std::string MovieAdd(std::vector<std::string> splittedMessage);
+    static std::string DeleteActor(std::string DeleteActorId);
+    static std::string DeleteDirector(std::string DeleteDirectorId);
+    static std::string DeleteMovie(std::string deleteMovieId);
 };
