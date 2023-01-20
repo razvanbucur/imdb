@@ -43,7 +43,7 @@ void Client::ConnectServer()
     if (_connectRes == -1)
     {
         std::cout << "Connection not possible!" << std::endl;
-        CloseClient();
+        CloseSocket();
     }
 }
 void Client::SendMessage(std::string message)

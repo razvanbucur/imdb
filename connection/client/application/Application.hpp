@@ -66,18 +66,18 @@ private:
     void ModeratorOrNot(std::string userType);
     void ShowUserMenu();
     void ShowModeratorMenu();
-    void ActorSearch();
-    void DirectorSearch();
-    void MovieSearch();
-    void Actor();
-    void Director();
-    void Movie();
-    void AddMovie();
-    void AddDirector();
-    void AddActor();
-    void DeleteActor();
-    void DeleteDirector();
-    void DeleteMovie();
+    void ShowActorSearchMenu();
+    void ShowDirectorSearchMenu();
+    void ShowMovieSearchMenu();
+    void ShowActorChoiceMenu();
+    void ShowDirectorChoiceMenu();
+    void ShowMovieChoiceMenu();
+    void ShowAddMovieMenu();
+    void ShowAddDirectorMenu();
+    void ShowAddActorMenu();
+    void ShowDeleteActorMenu();
+    void ShowDeleteDirectorMenu();
+    void ShowDeleteMovieMenu();
 
 
 public:

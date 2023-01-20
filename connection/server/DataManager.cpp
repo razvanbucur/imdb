@@ -86,9 +86,7 @@ bool DataManager::IsSecurePassword(std::string password)
     return true;
 }
 
-// nume@yahoo.com
-// nume.nume@yahoocom
-// string@string.string regex
+
 
 bool DataManager::IsValidEmail(std::string email)
 {

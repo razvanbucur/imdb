@@ -82,8 +82,9 @@ std::string MessageInterpreter::InterpretMessage(std::string message)
     {
         returnValue = DataManager::DeleteMovie(splittedMessage[1]);
     }
-
-
-
+    else
+    {
+        return STOP_CODE;
+    }
     return returnValue;
 }

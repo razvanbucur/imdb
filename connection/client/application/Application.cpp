@@ -1,5 +1,6 @@
 #include "Application.hpp"
 
+
 Application::Application()
 {
     client = new Client(54001);
@@ -32,7 +33,7 @@ void Application::ShowHomeMenu()
         int choice;
         std::cin >> choice;
 
-        if (choice == 1) // definuri
+        if (choice == 1) 
         {
             while (true)
             {
@@ -139,7 +140,7 @@ bool Application::ShowRegisterMenu()
     while (ch != 10)
     {
         password.push_back(ch);
-        std::cout << 'x';
+        //std::cout << 'x';
         ch = getch();
     }
     std::cout << std::endl;
@@ -231,7 +232,7 @@ std::string Application::GetUserType(std::string email)
     return userType;
 }
 
-void Application::ActorSearch()
+void Application::ShowActorSearchMenu()
 {
     std::string actor;
     std::cout << "Enter the actor's name you want to search for:" << std::endl;
@@ -243,7 +244,7 @@ void Application::ActorSearch()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 }
-void Application::DirectorSearch()
+void Application::ShowDirectorSearchMenu()
 {
     std::string director;
     std::cout << "Enter the director's name you want to search for:" << std::endl;
@@ -254,7 +255,7 @@ void Application::DirectorSearch()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 }
-void Application::MovieSearch()
+void Application::ShowMovieSearchMenu()
 {
     std::string movie;
     std::cout << "Enter the movie name you want to search for:" << std::endl;
@@ -265,7 +266,7 @@ void Application::MovieSearch()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 }
-void Application::AddActor()
+void Application::ShowAddActorMenu()
 {
     std::string actor;
     std::cout << "Enter the actor's name you want to add:" << std::endl;
@@ -277,7 +278,7 @@ void Application::AddActor()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 }
-void Application::DeleteActor()
+void Application::ShowDeleteActorMenu()
 {
     std::string id;
     std::cout << "Which actor you want to delete?" << std::endl;
@@ -287,10 +288,9 @@ void Application::DeleteActor()
     client->SendMessage(message);
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
-
 }
 
-void Application::DeleteDirector()
+void Application::ShowDeleteDirectorMenu()
 {
     std::string id;
     std::cout << "Which director you want to delete?" << std::endl;
@@ -301,7 +301,7 @@ void Application::DeleteDirector()
     std::string receivedMessage = client->ReceiveMessage();
     std::cout << receivedMessage << std::endl;
 }
-void Application::DeleteMovie()
+void Application::ShowDeleteMovieMenu()
 {
     std::string id;
     std::cout << "Which movie you want to delete?" << std::endl;
@@ -313,7 +313,7 @@ void Application::DeleteMovie()
     std::cout << receivedMessage << std::endl;
 }
 
-void Application::Actor()
+void Application::ShowActorChoiceMenu()
 {
     bool isRunning = true;
     while (isRunning)
@@ -325,15 +325,13 @@ void Application::Actor()
         switch (choice)
         {
         case 1:
-            ActorSearch();
+            ShowActorSearchMenu();
             break;
         case 2:
-
-            AddActor();
+            ShowAddActorMenu();
             break;
         case 3:
-            DeleteActor();
-
+            ShowDeleteActorMenu();
             break;
         case 0:
             isRunning = false;
@@ -344,7 +342,7 @@ void Application::Actor()
         }
     }
 }
-void Application::AddDirector()
+void Application::ShowAddDirectorMenu()
 {
     std::string director;
     std::cout << "Enter the directors's name you want to add:" << std::endl;
@@ -357,7 +355,7 @@ void Application::AddDirector()
     std::cout << receivedMessage << std::endl;
 }
 
-void Application::Director()
+void Application::ShowDirectorChoiceMenu()
 {
     int choice;
     std::cout << "Enter choice:" << std::endl;
@@ -365,15 +363,15 @@ void Application::Director()
     std::cin >> choice;
     if (choice == 1)
     {
-        DirectorSearch();
+        ShowDirectorSearchMenu();
     }
     else if (choice == 2)
     {
-        AddDirector();
+        ShowAddDirectorMenu();
     }
     else if (choice == 3)
     {
-        DeleteDirector();
+        ShowDeleteDirectorMenu();
     }
     else if (choice == 0)
     {
@@ -383,7 +381,7 @@ void Application::Director()
         // logica de quit
     }
 }
-void Application::AddMovie()
+void Application::ShowAddMovieMenu()
 {
     std::string movieName, releaseDate, category;
     std::cout << "Enter movie name!" << std::endl;
@@ -402,7 +400,7 @@ void Application::AddMovie()
     std::cout << receivedMessage << std::endl;
 }
 
-void Application::Movie()
+void Application::ShowMovieChoiceMenu()
 {
     int choice;
     std::cout << "1. Search movie\t\t2. Add movie\t\t3. Delete movie by ID\t\t0. Quit" << std::endl;
@@ -410,15 +408,15 @@ void Application::Movie()
     std::cin >> choice;
     if (choice == 1)
     {
-        MovieSearch();
+        ShowMovieSearchMenu();
     }
     else if (choice == 2)
     {
-        AddMovie();
+        ShowAddMovieMenu();
     }
     else if (choice == 3)
     {
-        DeleteMovie();
+        ShowDeleteMovieMenu();
     }
     else if (choice == 0)
     {
@@ -441,18 +439,18 @@ void Application::ShowModeratorMenu()
         switch (choice)
         {
         case 1:
-            Actor();
+            ShowActorChoiceMenu();
             break;
         case 2:
-            Director();
+            ShowDirectorChoiceMenu();
             break;
         case 3:
-            Movie();
+            ShowMovieChoiceMenu();
             break;
         case 0:
             std::cout << "Closing program..." << std::endl;
             exit(0);
-            
+
             break;
         default:
             std::cout << "Invalid choice!" << std::endl;
@@ -474,13 +472,13 @@ void Application::ShowUserMenu()
         switch (choice)
         {
         case 1:
-            ActorSearch();
+            ShowActorSearchMenu();
             break;
         case 2:
-            DirectorSearch();
+            ShowDirectorSearchMenu();
             break;
         case 3:
-            MovieSearch();
+            ShowMovieSearchMenu();
             break;
         case 0:
             std::cout << "Closing program..." << std::endl;
