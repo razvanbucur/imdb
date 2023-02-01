@@ -9,25 +9,27 @@
 
 #define DEFAULT_PROTOCOL AF_INET
 #define DEFAULT_IP "127.0.0.1"
+#define MESSAGE_NOT_RECEIVED "Message not received"
 
 class Client
 {
 private:
-int _sock;
-int _sendRes;
-int _connectRes;
-sockaddr_in _settings;   
-int _listenPort;
+    int _sock;
+    int _sendRes;
+    int _connectRes;
+    sockaddr_in _settings;
+    int _listenPort;
 
     void CreateSocket();
     void HintStructure();
     void ConnectServer();
-    void SendServer();
-
+    void CloseSocket();
 
 public:
-    Client();
     Client(int listenPort);
     ~Client();
     void StartClient();
+    void StopClient(std::string closingMessage);
+    void SendMessage(std::string message);
+    std::string ReceiveMessage();
 };

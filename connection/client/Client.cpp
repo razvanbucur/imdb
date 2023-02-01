@@ -1,11 +1,10 @@
 #include "Client.hpp"
+
 Client::Client(int listenPort)
 {
     _listenPort = listenPort;
 }
 Client::~Client() {}
-
-Client::Client() {}
 
 void Client::StartClient()
 {
@@ -17,10 +16,12 @@ void Client::StartClient()
     std::cout << "Socket was created" << std::endl;
     HintStructure();
     ConnectServer();
-    if (_connectRes == -1)
-    {
-        std::cout << "Connection not possible!" << std::endl;
-    }
+}
+
+void Client::StopClient(std::string closingMessage)
+{
+    SendMessage(closingMessage);
+    CloseSocket();
 }
 
 void Client::CreateSocket()
@@ -41,43 +42,34 @@ void Client::ConnectServer()
     _connectRes = connect(_sock, (sockaddr *)&_settings, sizeof(_settings));
     if (_connectRes == -1)
     {
-        return;
+        std::cout << "Connection not possible!" << std::endl;
+        CloseSocket();
     }
-    // While loop;
-
-    char buf[4096];
-    std::string userInput;
-
-    do
+}
+void Client::SendMessage(std::string message)
+{
+    _sendRes = send(_sock, message.c_str(), message.size() + 1, 0); 
+    if (_sendRes == -1)
     {
-        // Enter lines of text
-        std::cout << ">";
-        std::getline(std::cin, userInput);
 
-        _sendRes = send(_sock, userInput.c_str(), userInput.size() + 1, 0);
+        std::cout << "Could not send to server!" << std::endl;
+    }
+}
+std::string Client::ReceiveMessage()
+{
+    std::string receivedMessage;
+    char buff[4096];
+    memset(buff, 0, 4096);
+    int bytesRecv = recv(_sock, buff, 4096, 0);
+    receivedMessage = buff;
+    if (bytesRecv == -1)
 
-        if (_sendRes == -1)
-        {
-            break;
-            std::cout << "Could not send to server!" << std::endl;
-        }
-
-        if (userInput == "stop" || userInput == " ")
-        {
-
-            std::cout << "Client and Server disconected!" << std::endl;
-            break;
-        }
-
-        memset(buf, 0, 4096);
-        int bytesReceived = recv(_sock, buf, 4096, 0);
-        // Display response
-        std::cout << "SERVER RESPONSE>";
-        for (int x = 0; x < strlen(buf); x++)
-            putchar(toupper(buf[x]));
-        std::cout << std::endl;
-    } while (true);
-
-    // Close the socket
+    {
+        std::cout << MESSAGE_NOT_RECEIVED << std::endl;
+    }
+    return receivedMessage;
+}
+void Client::CloseSocket()
+{
     close(_sock);
 }

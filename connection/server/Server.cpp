@@ -7,49 +7,51 @@ Server::Server(int listenPort)
 
 Server::~Server() {}
 
-void Server::StartServer()
+bool Server::StartServer()
 {
 
     CreateSocket();
     if (_listenSocket == -1)
     {
-        return;
+        std::cout << "Can't create a socket!" << std::endl;
+        return false;
     }
+
     std::cout << "Socket was created" << std::endl;
 
     if (BindSocket() == 1)
     {
-        return;
+        std::cout << "Can't bind socket to IP/port" << std::endl;
+        return false;
     }
     std::cout << "Bind was succesfull" << std::endl;
 
     if (StartListening() == 1)
     {
-        return;
+        std::cout << "Can't listen!" << std::endl;
+        return false;
     }
     std::cout << "Listen was created" << std::endl;
 
     AcceptCall();
     if (_clientSocket == -1)
     {
-        return;
+        std::cout << "Problem with client connecting!" << std::endl;
+        return false;
     }
     std::cout << "Call was accepted" << std::endl;
 
     WhileReceiving();
 
-    CloseSocket();
+    CloseListenSocket();
     std::cout << "Socket was closed" << std::endl;
+
+    return true;
 }
 
 void Server::CreateSocket()
 {
     _listenSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (_listenSocket == -1)
-    {
-        std::cout << "Can't create a socket!" << std::endl;
-    }
 }
 
 bool Server::BindSocket()
@@ -61,21 +63,13 @@ bool Server::BindSocket()
 
     bool _couldBind = bind(_listenSocket, (sockaddr *)&_settings, sizeof(_settings));
 
-    if (_couldBind == -1)
-    {
-        std::cout << "Can't bind socket to IP/port" << std::endl;
-    }
-
     return _couldBind;
 }
 
 bool Server::StartListening()
 {
     bool _couldListen = listen(_listenSocket, SOMAXCONN);
-    if (_couldListen == -1)
-    {
-        std::cout << "Can't listen!" << std::endl;
-    }
+
     return _couldListen;
 }
 
@@ -85,12 +79,6 @@ void Server::AcceptCall()
     socklen_t clientSize = sizeof(client);
 
     _clientSocket = accept(_listenSocket, (sockaddr *)&client, &clientSize);
-
-    if (_clientSocket == -1)
-    {
-
-        std::cout << "Problem with client connecting!" << std::endl;
-    }
 }
 
 void Server::WhileReceiving()
@@ -98,36 +86,50 @@ void Server::WhileReceiving()
     char buff[4096];
     while (true)
     {
-
         memset(buff, 0, 4096);
 
-        int bytesRecv = recv(_clientSocket, buff, 4096, 0);
+        int bytesRecv = recv(_clientSocket, buff, 4096, 0); // alex0000000000000 la primul 0 se opreste deoarece acolo se termina sirul de caractere
         if (bytesRecv == -1)
         {
-
             std::cout << "There was a connection issue" << std::endl;
+            CloseClientSocket();
             break;
         }
-        // To do verifica conditia bytesrecv == 0 dupa ce se implementeza clientul
-        // aceasta este conditia de stop "STOP"
-        // std::string message = std::string(buff, 0, bytesRecv);
-        if (std::strcmp("stop", buff) == 0 || std::strcmp(" ", buff) == 0)
+
+        std::string message(buff);
+        if (message.empty()) {
+            std::cout << "Empty message received. Closing the connection" << std::endl;
+            CloseClientSocket();
+            continue;
+        }
+        std::string returnValue = MessageInterpreter::InterpretMessage(message);
+        if (returnValue == STOP_CODE)
         {
-            std::cout << "The client has disconnected" << std::endl;
-
-            break;
+            CloseClientSocket();
+            std::cout << STOP_MESSAGE << std::endl;
+            continue;
         }
-        std::cout << "Received: " << std::string(buff, 0, bytesRecv) << std::endl; // 0 este pozitia de start
-                                                                                   // sa returneze cu litere capitale
-
-         
-
-        send(_clientSocket, buff, bytesRecv + 1, 0);
+        SendMessage(returnValue);
     }
 }
 
-void Server::CloseSocket()
+void Server::SendMessage(std::string message)
+{
+    int sendRes = send(_clientSocket, message.c_str(), message.size() + 1, 0);
+
+    if (sendRes == -1)
+    {
+
+        std::cout << "Could not send to client!" << std::endl;
+    }
+}
+
+void Server::CloseListenSocket()
+{
+
+    close(_listenSocket);
+}
+void Server::CloseClientSocket()
 {
     close(_clientSocket);
-    close(_listenSocket);
 }

@@ -23,6 +23,27 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
+            "name": "Server",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/connection/server/Server",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "text": "-enable-pretty-printing",
+                    "description": "enable pretty printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build imdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
             "name": "C/C++: cpp build and debug active file",
             "type": "cppdbg",
             "request": "launch",
